@@ -1,1 +1,2 @@
 # bm
+- RaspberriPIでBareMetalを楽しむためのリポジトリです
