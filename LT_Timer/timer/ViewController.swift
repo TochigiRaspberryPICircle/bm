@@ -60,13 +60,19 @@ class ViewController: NSViewController {
     }
     
     func setTimerLabel() {
-        timerTextField.stringValue = "\(String(format: "%02d", minute)):\(String(format: "%02d", second))"
+        timerTextField.stringValue = "\(String(format: "%02d", minute)):\(String(format: "%02d", second)).000"
     }
     
     func setTimerLabel(sec: Int) {
         let m = Int(sec / 60)
         let s = Int(sec % 60)
         timerTextField.stringValue = "\(String(format: "%02d", m)):\(String(format: "%02d", s))"
+    }
+    
+    func setTimerLabel(sec: Int, milli: Int) {
+        let m = Int(sec / 60)
+        let s = Int(sec % 60)
+        timerTextField.stringValue = "\(String(format: "%02d", m)):\(String(format: "%02d", s)).\(String(format: "%03d", milli))"
     }
     
     @IBAction func buttonPushed(_ sender: Any) {
@@ -81,13 +87,16 @@ class ViewController: NSViewController {
         
         buttonStart.isEnabled = false
         
-        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { (t) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (t) in
             
             let time = Date()
             let elapsedTime = time.timeIntervalSince(self.timeStart)
             let remainingTime = self.secCounting - elapsedTime
+            let remainingMilli = remainingTime > 0.0 ? (remainingTime - floor(remainingTime)) * 1000 : 0.0
             print(remainingTime)
-            self.setTimerLabel(sec: Int(remainingTime))
+            print(remainingMilli)
+            
+            self.setTimerLabel(sec: Int(remainingTime), milli: Int(remainingMilli))
             
             if remainingTime <= 10.0 {
                 self.remainingTimeTextField.isHidden = false
@@ -95,13 +104,9 @@ class ViewController: NSViewController {
                 self.remainingTimeTextField.isHidden = true
             }
             
-            if remainingTime < 0.0 {
+            if remainingTime <= 0.0 {
                 t.invalidate()
                 
-                self.buttonStart.isEnabled = true
-                self.remainingTimeTextField.isHidden = true
-                
-            } else if 0.0 < remainingTime && remainingTime <= 0.5 {
                 let soundName = NSSound.Name(rawValue: "clap.mp3")
                 NSSound(named: soundName)?.play()
                 
@@ -117,6 +122,9 @@ class ViewController: NSViewController {
                     self.clap_R.isHidden = false
                     self.clap_L.isHidden = false
                 })
+                
+                self.buttonStart.isEnabled = true
+                self.remainingTimeTextField.isHidden = true
             }
         }
     }
