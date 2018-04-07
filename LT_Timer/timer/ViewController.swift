@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import AVFoundation
+
 
 class ViewController: NSViewController {
     
@@ -20,11 +22,19 @@ class ViewController: NSViewController {
     @IBOutlet weak var timerTextField: NSTextField!
     @IBOutlet weak var remainingTimeTextField: NSTextField!
     
+    @IBOutlet weak var clap_R: NSImageView!
+    @IBOutlet weak var clap_L: NSImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         remainingTimeTextField.isHidden = true
+        
+        clap_R.isHidden = true
+        clap_R.alphaValue = 0.0
+        clap_L.isHidden = true
+        clap_L.alphaValue = 0.0
     }
 
     override var representedObject: Any? {
@@ -61,15 +71,22 @@ class ViewController: NSViewController {
     
     @IBAction func buttonPushed(_ sender: Any) {
         
+        clap_R.isHidden = true
+        clap_R.alphaValue = 0.0
+        clap_L.isHidden = true
+        clap_L.alphaValue = 0.0
+        
         timeStart = Date()
         self.secCounting = Double(minute * 60 + second)
         
         buttonStart.isEnabled = false
         
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { (t) in
+            
             let time = Date()
-            let elapsedTime = time.timeIntervalSince(self.timeStart) as Double
+            let elapsedTime = time.timeIntervalSince(self.timeStart)
             let remainingTime = self.secCounting - elapsedTime
+            print(remainingTime)
             self.setTimerLabel(sec: Int(remainingTime))
             
             if remainingTime <= 10.0 {
@@ -78,13 +95,42 @@ class ViewController: NSViewController {
                 self.remainingTimeTextField.isHidden = true
             }
             
-            if remainingTime <= 0.0 {
+            if remainingTime < 0.0 {
                 t.invalidate()
+                
                 self.buttonStart.isEnabled = true
                 self.remainingTimeTextField.isHidden = true
+                
+            } else if 0.0 < remainingTime && remainingTime <= 0.5 {
+                let soundName = NSSound.Name(rawValue: "clap.mp3")
+                NSSound(named: soundName)?.play()
+                
+                NSAnimationContext.runAnimationGroup({ (context) in
+                    context.duration = 2.0
+                    
+                    self.clap_R.isHidden = false
+                    self.clap_R.animator().alphaValue = 1.0
+                    self.clap_L.isHidden = false
+                    self.clap_L.animator().alphaValue = 1.0
+                    
+                }, completionHandler: {
+                    self.clap_R.isHidden = false
+                    self.clap_L.isHidden = false
+                })
             }
         }
-        
+    }
+    
+    func playSound(file:String, ext:String) -> Void {
+        let url = Bundle.main.url(forResource: file, withExtension: ext)!
+        print(url)
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.prepareToPlay()
+            player.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 

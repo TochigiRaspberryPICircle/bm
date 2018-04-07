@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A254FC3D2078AF4A00F48DD0 /* clap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A254FC3C2078AF4A00F48DD0 /* clap.mp3 */; };
+		A254FC402078AFEB00F48DD0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A254FC3F2078AFEB00F48DD0 /* AVFoundation.framework */; };
 		A2B97C8F20709753005D5FCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B97C8E20709753005D5FCE /* AppDelegate.swift */; };
 		A2B97C9120709753005D5FCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B97C9020709753005D5FCE /* ViewController.swift */; };
 		A2B97C9320709755005D5FCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B97C9220709755005D5FCE /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A254FC3C2078AF4A00F48DD0 /* clap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = clap.mp3; sourceTree = "<group>"; };
+		A254FC3F2078AFEB00F48DD0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A2B97C8B20709753005D5FCE /* timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B97C8E20709753005D5FCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2B97C9020709753005D5FCE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,17 +32,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A254FC402078AFEB00F48DD0 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A254FC3E2078AFEB00F48DD0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A254FC3F2078AFEB00F48DD0 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A2B97C8220709753005D5FCE = {
 			isa = PBXGroup;
 			children = (
 				A2B97C8D20709753005D5FCE /* timer */,
 				A2B97C8C20709753005D5FCE /* Products */,
+				A254FC3E2078AFEB00F48DD0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,6 +67,7 @@
 		A2B97C8D20709753005D5FCE /* timer */ = {
 			isa = PBXGroup;
 			children = (
+				A254FC3C2078AF4A00F48DD0 /* clap.mp3 */,
 				A2B97C8E20709753005D5FCE /* AppDelegate.swift */,
 				A2B97C9020709753005D5FCE /* ViewController.swift */,
 				A2B97C9220709755005D5FCE /* Assets.xcassets */,
@@ -121,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A254FC3D2078AF4A00F48DD0 /* clap.mp3 in Resources */,
 				A2B97C9320709755005D5FCE /* Assets.xcassets in Resources */,
 				A2B97C9620709755005D5FCE /* Main.storyboard in Resources */,
 			);
@@ -279,7 +295,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akimacho.LT-Timer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -301,7 +317,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akimacho.LT-Timer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

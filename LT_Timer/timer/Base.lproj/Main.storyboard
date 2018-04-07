@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -787,10 +788,29 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TuB-gY-dPD">
+                                <rect key="frame" x="375" y="185" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TuB-gY-dPD" secondAttribute="height" multiplier="1:1" id="SJi-aU-ULk"/>
+                                    <constraint firstAttribute="width" constant="60" id="XLR-vd-MeN"/>
+                                    <constraint firstAttribute="height" constant="60" id="bsb-Fc-a2d"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="clap_R" id="8Z4-t9-5A2"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8sH-Ce-xdu">
+                                <rect key="frame" x="45" y="185" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8sH-Ce-xdu" secondAttribute="height" multiplier="1:1" id="aSS-us-JRm"/>
+                                    <constraint firstAttribute="height" constant="60" id="d5n-8C-I4y"/>
+                                    <constraint firstAttribute="width" constant="60" id="qEo-Kb-q82"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="clap_L" id="imU-4M-bux"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="xVG-Aa-1vw" firstAttribute="centerY" secondItem="kEA-Iz-FKO" secondAttribute="centerY" id="0Y4-qQ-BII"/>
                             <constraint firstItem="kuL-zf-yXX" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="21W-Kw-V4P"/>
+                            <constraint firstItem="TuB-gY-dPD" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="3g6-up-ZLM"/>
                             <constraint firstItem="C0d-wk-gdw" firstAttribute="centerY" secondItem="S4U-OZ-ycV" secondAttribute="centerY" id="5pD-rE-3g7"/>
                             <constraint firstItem="kuL-zf-yXX" firstAttribute="top" secondItem="WVi-M5-9mE" secondAttribute="bottom" constant="15" id="95C-wa-FMY"/>
                             <constraint firstAttribute="bottom" secondItem="0t8-OD-Q3z" secondAttribute="bottom" constant="20" id="BJO-Ch-7ab"/>
@@ -799,15 +819,20 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="C0d-wk-gdw" secondAttribute="trailing" constant="20" symbolic="YES" id="IXS-uB-GZ9"/>
                             <constraint firstItem="0t8-OD-Q3z" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="S4R-Po-vCZ"/>
                             <constraint firstItem="C0d-wk-gdw" firstAttribute="leading" secondItem="S4U-OZ-ycV" secondAttribute="trailing" constant="10" id="Wiy-93-h0A"/>
+                            <constraint firstAttribute="trailing" secondItem="TuB-gY-dPD" secondAttribute="trailing" constant="45" id="WqG-gJ-omR"/>
                             <constraint firstItem="S4U-OZ-ycV" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="bgo-sC-rqi"/>
                             <constraint firstItem="kEA-Iz-FKO" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="gth-wW-3C0"/>
                             <constraint firstAttribute="trailing" secondItem="xVG-Aa-1vw" secondAttribute="trailing" constant="109" id="jkR-sS-wLe"/>
                             <constraint firstItem="WVi-M5-9mE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="kAj-lR-HVQ"/>
                             <constraint firstItem="xVG-Aa-1vw" firstAttribute="leading" secondItem="kEA-Iz-FKO" secondAttribute="trailing" constant="10" id="rOv-jd-GHN"/>
+                            <constraint firstItem="8sH-Ce-xdu" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="waK-OL-CLw"/>
+                            <constraint firstItem="8sH-Ce-xdu" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="45" id="yWg-W0-QY8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonStart" destination="0t8-OD-Q3z" id="rZe-Qq-x02"/>
+                        <outlet property="clap_L" destination="8sH-Ce-xdu" id="d7j-Px-oxZ"/>
+                        <outlet property="clap_R" destination="TuB-gY-dPD" id="TTl-Jo-LSN"/>
                         <outlet property="remainingTimeTextField" destination="kuL-zf-yXX" id="cUT-fW-1A6"/>
                         <outlet property="timerTextField" destination="WVi-M5-9mE" id="3rC-pK-XZu"/>
                     </connections>
@@ -817,4 +842,8 @@
             <point key="canvasLocation" x="75" y="655"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="clap_L" width="128" height="128"/>
+        <image name="clap_R" width="128" height="128"/>
+    </resources>
 </document>
