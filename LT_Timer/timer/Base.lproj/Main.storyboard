@@ -762,7 +762,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WVi-M5-9mE">
-                                <rect key="frame" x="204" y="195" width="73" height="30"/>
+                                <rect key="frame" x="204" y="215" width="73" height="30"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00:00" id="yTK-U2-RIv">
                                     <font key="font" metaFont="system" size="25"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -779,10 +779,20 @@
                                     <action selector="buttonPushed:" target="XfG-lQ-9wD" id="hGT-lg-ZEm"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kuL-zf-yXX">
+                                <rect key="frame" x="205" y="181" width="70" height="19"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="あと10秒" id="8te-RY-BZd">
+                                    <font key="font" metaFont="system" size="16"/>
+                                    <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="xVG-Aa-1vw" firstAttribute="centerY" secondItem="kEA-Iz-FKO" secondAttribute="centerY" id="0Y4-qQ-BII"/>
+                            <constraint firstItem="kuL-zf-yXX" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="21W-Kw-V4P"/>
                             <constraint firstItem="C0d-wk-gdw" firstAttribute="centerY" secondItem="S4U-OZ-ycV" secondAttribute="centerY" id="5pD-rE-3g7"/>
+                            <constraint firstItem="kuL-zf-yXX" firstAttribute="top" secondItem="WVi-M5-9mE" secondAttribute="bottom" constant="15" id="95C-wa-FMY"/>
                             <constraint firstAttribute="bottom" secondItem="0t8-OD-Q3z" secondAttribute="bottom" constant="20" id="BJO-Ch-7ab"/>
                             <constraint firstItem="S4U-OZ-ycV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="85" id="DsU-ob-2nz"/>
                             <constraint firstItem="WVi-M5-9mE" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="IGn-dC-tpR"/>
@@ -792,12 +802,13 @@
                             <constraint firstItem="S4U-OZ-ycV" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="bgo-sC-rqi"/>
                             <constraint firstItem="kEA-Iz-FKO" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="gth-wW-3C0"/>
                             <constraint firstAttribute="trailing" secondItem="xVG-Aa-1vw" secondAttribute="trailing" constant="109" id="jkR-sS-wLe"/>
-                            <constraint firstItem="WVi-M5-9mE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="45" id="kAj-lR-HVQ"/>
+                            <constraint firstItem="WVi-M5-9mE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="25" id="kAj-lR-HVQ"/>
                             <constraint firstItem="xVG-Aa-1vw" firstAttribute="leading" secondItem="kEA-Iz-FKO" secondAttribute="trailing" constant="10" id="rOv-jd-GHN"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonStart" destination="0t8-OD-Q3z" id="rZe-Qq-x02"/>
+                        <outlet property="remainingTimeTextField" destination="kuL-zf-yXX" id="cUT-fW-1A6"/>
                         <outlet property="timerTextField" destination="WVi-M5-9mE" id="3rC-pK-XZu"/>
                     </connections>
                 </viewController>

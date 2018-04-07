@@ -17,13 +17,14 @@ class ViewController: NSViewController {
     private var timeStart = Date()
     
     @IBOutlet weak var buttonStart: NSButton!
-    
-    
     @IBOutlet weak var timerTextField: NSTextField!
+    @IBOutlet weak var remainingTimeTextField: NSTextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        remainingTimeTextField.isHidden = true
     }
 
     override var representedObject: Any? {
@@ -65,15 +66,22 @@ class ViewController: NSViewController {
         
         buttonStart.isEnabled = false
         
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (t) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { (t) in
             let time = Date()
-            let interval = time.timeIntervalSince(self.timeStart) as Double
+            let elapsedTime = time.timeIntervalSince(self.timeStart) as Double
+            let remainingTime = self.secCounting - elapsedTime
+            self.setTimerLabel(sec: Int(remainingTime))
             
-            self.setTimerLabel(sec: Int(self.secCounting - interval))
+            if remainingTime <= 10.0 {
+                self.remainingTimeTextField.isHidden = false
+            } else {
+                self.remainingTimeTextField.isHidden = true
+            }
             
-            if interval > self.secCounting {
+            if remainingTime <= 0.0 {
                 t.invalidate()
                 self.buttonStart.isEnabled = true
+                self.remainingTimeTextField.isHidden = true
             }
         }
         
