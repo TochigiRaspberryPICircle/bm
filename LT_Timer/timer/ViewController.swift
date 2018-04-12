@@ -53,14 +53,12 @@ class ViewController: NSViewController {
     
     @IBAction func secondChanged(_ sender: Any) {
         let textField = sender as! NSTextField
-        print(textField.stringValue)
-        
         second = Int(textField.stringValue) ?? 0
         setTimerLabel()
     }
     
     func setTimerLabel() {
-        timerTextField.stringValue = "\(String(format: "%02d", minute)):\(String(format: "%02d", second)).000"
+        timerTextField.stringValue = "\(String(format: "%02d", minute)):\(String(format: "%02d", second))"
     }
     
     func setTimerLabel(sec: Int) {
@@ -91,12 +89,9 @@ class ViewController: NSViewController {
             
             let time = Date()
             let elapsedTime = time.timeIntervalSince(self.timeStart)
-            let remainingTime = self.secCounting - elapsedTime
-            let remainingMilli = remainingTime > 0.0 ? (remainingTime - floor(remainingTime)) * 1000 : 0.0
-            print(remainingTime)
-            print(remainingMilli)
+            let remainingTime = ceil(self.secCounting - elapsedTime)
             
-            self.setTimerLabel(sec: Int(remainingTime), milli: Int(remainingMilli))
+            self.setTimerLabel(sec: Int(remainingTime))
             
             if remainingTime <= 10.0 {
                 self.remainingTimeTextField.isHidden = false
