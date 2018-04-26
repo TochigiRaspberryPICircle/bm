@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A254FC3D2078AF4A00F48DD0 /* clap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A254FC3C2078AF4A00F48DD0 /* clap.mp3 */; };
 		A254FC402078AFEB00F48DD0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A254FC3F2078AFEB00F48DD0 /* AVFoundation.framework */; };
+		A2631D59207F91A50056D0F2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2631D56207F91A50056D0F2 /* CoreBluetooth.framework */; };
+		A2631D5A207F91A50056D0F2 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2631D57207F91A50056D0F2 /* IOBluetooth.framework */; };
+		A2631D5B207F91A50056D0F2 /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2631D58207F91A50056D0F2 /* IOBluetoothUI.framework */; };
 		A2B97C8F20709753005D5FCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B97C8E20709753005D5FCE /* AppDelegate.swift */; };
 		A2B97C9120709753005D5FCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B97C9020709753005D5FCE /* ViewController.swift */; };
 		A2B97C9320709755005D5FCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2B97C9220709755005D5FCE /* Assets.xcassets */; };
@@ -18,6 +21,9 @@
 /* Begin PBXFileReference section */
 		A254FC3C2078AF4A00F48DD0 /* clap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = clap.mp3; sourceTree = "<group>"; };
 		A254FC3F2078AFEB00F48DD0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A2631D56207F91A50056D0F2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		A2631D57207F91A50056D0F2 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		A2631D58207F91A50056D0F2 /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
 		A2B97C8B20709753005D5FCE /* timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B97C8E20709753005D5FCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2B97C9020709753005D5FCE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2631D59207F91A50056D0F2 /* CoreBluetooth.framework in Frameworks */,
+				A2631D5A207F91A50056D0F2 /* IOBluetooth.framework in Frameworks */,
+				A2631D5B207F91A50056D0F2 /* IOBluetoothUI.framework in Frameworks */,
 				A254FC402078AFEB00F48DD0 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +51,9 @@
 		A254FC3E2078AFEB00F48DD0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A2631D56207F91A50056D0F2 /* CoreBluetooth.framework */,
+				A2631D57207F91A50056D0F2 /* IOBluetooth.framework */,
+				A2631D58207F91A50056D0F2 /* IOBluetoothUI.framework */,
 				A254FC3F2078AFEB00F48DD0 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
@@ -286,17 +298,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = timer/timer.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = NP7A49BCRF;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = timer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.akimacho.LT-Timer";
+				PRODUCT_BUNDLE_IDENTIFIER = akimacho.lttimer.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -308,17 +320,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = timer/timer.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = NP7A49BCRF;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = timer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.akimacho.LT-Timer";
+				PRODUCT_BUNDLE_IDENTIFIER = akimacho.lttimer.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
