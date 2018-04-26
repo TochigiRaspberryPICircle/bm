@@ -14,16 +14,30 @@ class ViewController: NSViewController, LTTimerProtocol {
     let center = NotificationCenter.default
     var ltTimer = LTTimer()
     var isRestart = false
-    var minute = 0
-    var second = 0
+    
+    var setMin = 0
+    var setSec = 0
     var settime: (Int, Int) {
         get {
-            return (minute, second)
+            return (setMin, setSec)
         }
         set(t) {
-            minute = t.0
-            second = t.1
-            labelSetTime.stringValue = "\(String(format: "%02d", minute)):\(String(format: "%02d", second))"
+            setMin = t.0
+            setSec = t.1
+            labelSetTime.stringValue = "\(String(format: "%02d", setMin)):\(String(format: "%02d", setSec))"
+        }
+    }
+    
+    var remainingMin = 0
+    var remainingSec = 0
+    var remainingTime: (Int, Int) {
+        get {
+            return (remainingMin, remainingSec)
+        }
+        set(t) {
+            remainingMin = t.0
+            remainingSec = t.1
+            labelRemainingTime.stringValue = "\(String(format: "%02d", remainingMin)):\(String(format: "%02d", remainingSec))"
         }
     }
     
@@ -73,9 +87,9 @@ class ViewController: NSViewController, LTTimerProtocol {
         }
         
         if textField == textFieldMinute {
-            settime = (numberTime, second)
+            settime = (numberTime, settime.1)
         } else if textField == textFieldSecond {
-            settime = (minute, numberTime)
+            settime = (settime.0, numberTime)
         }
     }
     
@@ -91,7 +105,7 @@ class ViewController: NSViewController, LTTimerProtocol {
         imgClapRight.isHidden = true
         
         if !isRestart {
-            return ltTimer.start(min: minute, sec: second)
+            return ltTimer.start(min: settime.0, sec: settime.1)
         }
         do {
             try ltTimer.restart()
@@ -110,8 +124,9 @@ class ViewController: NSViewController, LTTimerProtocol {
     
     @IBAction func resetTimer(_ sender: Any) {
         // TODO: -
+        isRestart = false
         settime = (0, 0)
-        self.labelRemainingTime?.stringValue = "00:00"
+        remainingTime = (0, 0)
         ltTimer.reset()
     }
     
@@ -127,6 +142,7 @@ class ViewController: NSViewController, LTTimerProtocol {
         buttonReset.isEnabled = true
         isRestart = false
         
+        self.labelSetTime.stringValue = "888888"
         self.labelRemainingTime.stringValue = "88888888"
         imgClapLeft.isHidden = false
         imgClapRight.isHidden = false
@@ -134,10 +150,10 @@ class ViewController: NSViewController, LTTimerProtocol {
         print("[mac -> raspi]: GET /finish")
     }
     
-    func onUpdate(remainingTime: Int) {
-        let m = Int(remainingTime / 60)
-        let s = Int(remainingTime % 60)
-        self.labelRemainingTime?.stringValue = "\(String(format: "%02d", m)):\(String(format: "%02d", s))"
+    func onUpdate(remainingSec: Int) {
+        let m = Int(remainingSec / 60)
+        let s = Int(remainingSec % 60)
+        remainingTime = (m, s)
     }
 }
 

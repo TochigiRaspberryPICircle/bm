@@ -34,7 +34,7 @@ class LTTimer {
         self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { (timer) in
             let elapsedTime = Date().timeIntervalSince(starttime)
             self.remainingTime = ceil(self.settime - elapsedTime)
-            self.delegate?.onUpdate(remainingTime: Int(self.remainingTime!))
+            self.delegate?.onUpdate(remainingSec: Int(self.remainingTime!))
             
             if 0.0 < self.remainingTime! && self.remainingTime! <= 10.0 && !self.isLastspurtAttached {
                 self.isLastspurtAttached = true

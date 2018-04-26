@@ -756,14 +756,14 @@
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A3p-ca-pqc">
                                 <rect key="frame" x="377" y="17" width="81" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="LT" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4nN-nZ-rQe" id="GlP-fE-qXB">
+                                <popUpButtonCell key="cell" type="push" title="Normal" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aY3-uy-2lK" id="GlP-fE-qXB">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="CWd-J8-Q9P">
                                         <items>
-                                            <menuItem title="Normal" id="aY3-uy-2lK"/>
+                                            <menuItem title="Normal" state="on" id="aY3-uy-2lK"/>
                                             <menuItem title="Panel" id="Kgv-s4-wOI"/>
-                                            <menuItem title="LT" state="on" id="4nN-nZ-rQe"/>
+                                            <menuItem title="LT" id="4nN-nZ-rQe"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>

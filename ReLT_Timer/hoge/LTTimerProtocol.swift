@@ -9,5 +9,5 @@
 protocol LTTimerProtocol {
     func lastspurt()
     func finish()
-    func onUpdate(remainingTime: Int)
+    func onUpdate(remainingSec: Int)
 }
