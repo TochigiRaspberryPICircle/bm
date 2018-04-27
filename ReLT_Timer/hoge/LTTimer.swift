@@ -10,40 +10,44 @@ import Cocoa
 
 class LTTimer {
     private var timer = Timer()
-    private var settime: Double = 0.0 // Second
-    private var remainingTime: Double? = nil // Second
+    private var starttime = Date()
+    private var settimeSec: Double = 0.0
     private var isLastspurtAttached: Bool = false
-    public var labelRemainingTime: NSTextField? = nil
+    
+    public var remainingTimeSec: Double? = nil
     public var delegate: LTTimerProtocol? = nil
     
     public func start(min: Int, sec: Int) {
-        self.settime = Double(min * 60 + sec)
+        self.settimeSec = Double(min * 60 + sec)
         fire()
     }
     
     public func restart() throws {
-        guard let remainingTime = remainingTime else {
+        guard let remainingTimeSec = remainingTimeSec else {
             throw NSError(domain: "Remaining time not set", code: -1, userInfo: nil)
         }
-        self.settime = remainingTime
+        self.settimeSec = remainingTimeSec
         fire()
     }
     
     private func fire(interval: Double = 0.05) {
-        let starttime = Date()
-        self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { (timer) in
-            let elapsedTime = Date().timeIntervalSince(starttime)
-            self.remainingTime = ceil(self.settime - elapsedTime)
-            self.delegate?.onUpdate(remainingSec: Int(self.remainingTime!))
-            
-            if 0.0 < self.remainingTime! && self.remainingTime! <= 10.0 && !self.isLastspurtAttached {
-                self.isLastspurtAttached = true
-                self.delegate?.lastspurt()
-            } else if self.remainingTime! <= 0.0 {
-                self.isLastspurtAttached = false
-                self.delegate?.finish()
-                timer.invalidate()
-            }
+        self.starttime = Date()
+        self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: self.onUpdate)
+    }
+    
+    private func onUpdate(timer: Timer) {
+        let elapsedTime = Date().timeIntervalSince(starttime)
+        self.remainingTimeSec = ceil(self.settimeSec - elapsedTime)
+        
+        self.delegate?.onUpdate(remainingSec: Int(self.remainingTimeSec!))
+        
+        if 0.0 < self.remainingTimeSec! && self.remainingTimeSec! <= 10.0 && !self.isLastspurtAttached {
+            self.isLastspurtAttached = true
+            self.delegate?.lastspurt()
+        } else if self.remainingTimeSec! <= 0.0 {
+            self.isLastspurtAttached = false
+            self.delegate?.finish()
+            timer.invalidate()
         }
     }
     
@@ -57,8 +61,8 @@ class LTTimer {
     }
     
     private func clear() {
-        settime = 0.0
-        remainingTime = 0.0
+        settimeSec = 0.0
+        remainingTimeSec = 0.0
     }
     
 }

@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :osx, '10.12'
+use_frameworks!
+
+target 'hoge' do
+    pod 'Alamofire', '~> 4.7'
+    pod 'Swifter', :git => 'https://github.com/httpswift/swifter.git'
+    pod 'SwiftyJSON', '~> 4.0'
+end

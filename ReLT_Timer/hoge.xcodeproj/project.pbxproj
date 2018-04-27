@@ -13,9 +13,28 @@
 		A274AC5B2091C49C00916356 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A274AC5A2091C49C00916356 /* ViewController.swift */; };
 		A274AC5D2091C49F00916356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A274AC5C2091C49F00916356 /* Assets.xcassets */; };
 		A274AC602091C49F00916356 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A274AC5E2091C49F00916356 /* Main.storyboard */; };
+		A2E03AD920935E46005D22BE /* Pods_hoge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31CD1DC6940DCF5262C7BBFE /* Pods_hoge.framework */; };
+		A2E03ADA20935E46005D22BE /* Pods_hoge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31CD1DC6940DCF5262C7BBFE /* Pods_hoge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A2E03ADE20935E46005D22BE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A2E03ADA20935E46005D22BE /* Pods_hoge.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		31CD1DC6940DCF5262C7BBFE /* Pods_hoge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hoge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		684AB199CA10FD8F058E526A /* Pods-hoge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoge/Pods-hoge.debug.xcconfig"; sourceTree = "<group>"; };
+		964EEA8BF35F721A456280E2 /* Pods-hoge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoge.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoge/Pods-hoge.release.xcconfig"; sourceTree = "<group>"; };
 		A23961B52091FBF300402871 /* LTTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTTimer.swift; sourceTree = "<group>"; };
 		A23961B72092149200402871 /* LTTimerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTTimerProtocol.swift; sourceTree = "<group>"; };
 		A274AC552091C49C00916356 /* hoge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hoge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,17 +51,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2E03AD920935E46005D22BE /* Pods_hoge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5269DD81659F88A3513F3527 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				684AB199CA10FD8F058E526A /* Pods-hoge.debug.xcconfig */,
+				964EEA8BF35F721A456280E2 /* Pods-hoge.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A274AC4C2091C49C00916356 = {
 			isa = PBXGroup;
 			children = (
 				A274AC572091C49C00916356 /* hoge */,
 				A274AC562091C49C00916356 /* Products */,
+				5269DD81659F88A3513F3527 /* Pods */,
+				AF9EC3E15968EA859C2320BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +100,14 @@
 			path = hoge;
 			sourceTree = "<group>";
 		};
+		AF9EC3E15968EA859C2320BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				31CD1DC6940DCF5262C7BBFE /* Pods_hoge.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -76,9 +115,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A274AC652091C49F00916356 /* Build configuration list for PBXNativeTarget "hoge" */;
 			buildPhases = (
+				9BE95A6E9E80A491996DE07E /* [CP] Check Pods Manifest.lock */,
 				A274AC512091C49C00916356 /* Sources */,
 				A274AC522091C49C00916356 /* Frameworks */,
 				A274AC532091C49C00916356 /* Resources */,
+				0F1935673527C6C7049AF1D5 /* [CP] Embed Pods Frameworks */,
+				7EAF5FAF4B8B5BA982A9167C /* [CP] Copy Pods Resources */,
+				A2E03ADE20935E46005D22BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +176,64 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F1935673527C6C7049AF1D5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-hoge/Pods-hoge-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swifter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoge/Pods-hoge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EAF5FAF4B8B5BA982A9167C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoge/Pods-hoge-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BE95A6E9E80A491996DE07E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hoge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A274AC512091C49C00916356 /* Sources */ = {
@@ -275,6 +376,7 @@
 		};
 		A274AC662091C49F00916356 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 684AB199CA10FD8F058E526A /* Pods-hoge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = hoge/hoge.entitlements;
@@ -282,10 +384,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = hoge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akimacho.lttimer.hoge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -295,6 +395,7 @@
 		};
 		A274AC672091C49F00916356 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 964EEA8BF35F721A456280E2 /* Pods-hoge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = hoge/hoge.entitlements;
@@ -302,10 +403,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = hoge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akimacho.lttimer.hoge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
