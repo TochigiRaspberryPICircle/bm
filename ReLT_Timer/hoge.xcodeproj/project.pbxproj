@@ -13,6 +13,7 @@
 		A274AC5B2091C49C00916356 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A274AC5A2091C49C00916356 /* ViewController.swift */; };
 		A274AC5D2091C49F00916356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A274AC5C2091C49F00916356 /* Assets.xcassets */; };
 		A274AC602091C49F00916356 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A274AC5E2091C49F00916356 /* Main.storyboard */; };
+		A2B3EF9D2097F8C300B2AC1B /* TimerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3EF9C2097F8C300B2AC1B /* TimerMode.swift */; };
 		A2E03AD920935E46005D22BE /* Pods_hoge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31CD1DC6940DCF5262C7BBFE /* Pods_hoge.framework */; };
 		A2E03ADA20935E46005D22BE /* Pods_hoge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31CD1DC6940DCF5262C7BBFE /* Pods_hoge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		A274AC5F2091C49F00916356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A274AC612091C49F00916356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A274AC622091C49F00916356 /* hoge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hoge.entitlements; sourceTree = "<group>"; };
+		A2B3EF9C2097F8C300B2AC1B /* TimerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				A274AC5A2091C49C00916356 /* ViewController.swift */,
 				A23961B52091FBF300402871 /* LTTimer.swift */,
 				A23961B72092149200402871 /* LTTimerProtocol.swift */,
+				A2B3EF9C2097F8C300B2AC1B /* TimerMode.swift */,
 				A274AC5C2091C49F00916356 /* Assets.xcassets */,
 				A274AC5E2091C49F00916356 /* Main.storyboard */,
 				A274AC612091C49F00916356 /* Info.plist */,
@@ -242,6 +245,7 @@
 			files = (
 				A23961B62091FBF300402871 /* LTTimer.swift in Sources */,
 				A274AC5B2091C49C00916356 /* ViewController.swift in Sources */,
+				A2B3EF9D2097F8C300B2AC1B /* TimerMode.swift in Sources */,
 				A274AC592091C49C00916356 /* AppDelegate.swift in Sources */,
 				A23961B82092149200402871 /* LTTimerProtocol.swift in Sources */,
 			);
@@ -384,7 +388,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = hoge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akimacho.lttimer.hoge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -403,7 +410,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = hoge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akimacho.lttimer.hoge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
