@@ -10,6 +10,7 @@ import Cocoa
 import Swifter
 import SwiftyJSON
 import Dispatch
+import Alamofire
 
 class ViewController: NSViewController, LTTimerProtocol {
     
@@ -33,6 +34,7 @@ class ViewController: NSViewController, LTTimerProtocol {
             labelRemainingTime.stringValue = "\(String(format: "%02d", remainingMin)):\(String(format: "%02d", remainingSec))"
         }
     }
+    let baseURL = "http://raspberrypi.local"
     
     // MARK: - UI Parts
     
@@ -155,6 +157,11 @@ class ViewController: NSViewController, LTTimerProtocol {
     
     func lastspurt() {
         print("[mac -> raspi]: GET /lastspurt")
+        let url = URL(string: baseURL + "/lastspurt")
+        let request = URLRequest(url: url!, timeoutInterval: 5)
+        Alamofire.request(request).responseString { (res) in
+            print(res)
+        }
     }
     
     func finish() {
@@ -168,6 +175,11 @@ class ViewController: NSViewController, LTTimerProtocol {
         imgClapRight.isHidden = false
         
         print("[mac -> raspi]: GET /finish")
+        let url = URL(string: baseURL + "/finish")
+        let request = URLRequest(url: url!, timeoutInterval: 5)
+        Alamofire.request(request).responseString { (res) in
+            print(res)
+        }
     }
     
     func onUpdate(remainingSec: Int) {
