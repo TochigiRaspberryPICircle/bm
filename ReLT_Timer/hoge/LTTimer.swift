@@ -17,8 +17,33 @@ class LTTimer {
     public var remainingTimeSec: Double? = nil
     public var delegate: LTTimerProtocol? = nil
     
+    public var min: Int = 0
+    public var sec: Int = 0
+    
+    static func createTimers(timeLine: [(done: Bool, title: String, minute: Int)], delegate: LTTimerProtocol) -> [LTTimer] {
+        var timers: [LTTimer] = []
+        for t in timeLine {
+            let timer = LTTimer(min: t.minute, sec: 0)
+            timer.delegate = delegate
+            timers.append(timer)
+        }
+        return timers
+    }
+    
+    init() { }
+    
+    init(min: Int, sec: Int) {
+        self.min = min
+        self.sec = sec
+    }
+    
     public func start(min: Int, sec: Int) {
         self.settimeSec = Double(min * 60 + sec)
+        fire()
+    }
+    
+    public func start() {
+        self.settimeSec = Double(self.min * 60 + self.sec)
         fire()
     }
     
