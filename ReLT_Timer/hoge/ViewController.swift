@@ -36,20 +36,21 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     var mode: TimerMode = TimerMode.Normal
     let baseURL = "http://raspberrypi.local"
-    var timeLinePanel: [(done: Bool, title: String, minute: Int)] = [
-        (false, "パネル1 - イントロ", 22),
-        (false, "パネル1 - お題1", 12),
-        (false, "パネル1 - お題2", 12),
-        (false, "パネル1 - お題3", 12),
-        (false, "パネル1 - お題4", 12),
-        (false, "パネル2 - イントロ", 22),
-        (false, "パネル2 - お題1", 12),
-        (false, "パネル2 - お題2", 12),
-        (false, "パネル2 - お題3", 12),
-        (false, "パネル2 - お題4", 12),
-    ]
+    var timeLine = TimeLine()
     
-    var timeLineLT: [(done: Bool, title: String, minute: Int)] = []
+//    var timeLinePanel: [(done: Bool, title: String, minute: Int)] = [
+//        (false, "パネル1 - イントロ", 22),
+//        (false, "パネル1 - お題1", 12),
+//        (false, "パネル1 - お題2", 12),
+//        (false, "パネル1 - お題3", 12),
+//        (false, "パネル1 - お題4", 12),
+//        (false, "パネル2 - イントロ", 22),
+//        (false, "パネル2 - お題1", 12),
+//        (false, "パネル2 - お題2", 12),
+//        (false, "パネル2 - お題3", 12),
+//        (false, "パネル2 - お題4", 12),
+//    ]
+//    var timeLineLT: [(done: Bool, title: String, minute: Int)] = []
     
     var timerIndex: Int = 0
     
@@ -162,26 +163,26 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 self.imgClapRight.isHidden = true
             }
             
-        case .Panel:
+        case .Panel, .LT:
+            if timeLine.get(mode: self.mode).count == 0 {
+                // TODO: - UIパーツのロジックの整理
+                return
+            }
             if timerIndex < 0 {
                 timerIndex = 0
-                for i in (0 ..< timeLinePanel.count) {
-                    print(i)
-                    timeLinePanel[i].done = false
+                for i in (0 ..< timeLine.get(mode: self.mode).count) {
+                    timeLine.done(mode: mode, index: i)
                     timeTableView.reloadData()
                 }
-                self.ltTimer.start(min: self.timeLinePanel[timerIndex].minute, sec: 0)
+                self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: 0)
                 return
             }
             
-            self.ltTimer.start(min: self.timeLinePanel[timerIndex].minute, sec: 0)
+            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: 0)
             DispatchQueue.main.async {
                 self.timeTableView.deselectRow(self.timerIndex-1)
                 self.timeTableView.selectRowIndexes(IndexSet(integer: self.timerIndex), byExtendingSelection: false)
             }
-            
-        case .LT:
-            _ = 0
         }
     }
     
@@ -222,13 +223,15 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         self.mode = TimerMode.create(mode: buttonModes.title)
         switch self.mode {
         case .Normal:
+            labelSetTime.isHidden = false
+            labelRemainingTime.isHidden = false
             textFieldMinute.isHidden = false
             textFieldSecond.isHidden = false
             scrollView.isHidden = true
             timeTableView.isHidden = true
             buttonAddRow.isHidden = true
             buttonDeleteRow.isHidden = true
-        case .Panel:
+        case .Panel, .LT:
             labelSetTime.isHidden = true
             textFieldMinute.isHidden = true
             textFieldSecond.isHidden = true
@@ -236,17 +239,16 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             timeTableView.isHidden = false
             buttonAddRow.isHidden = false
             buttonDeleteRow.isHidden = false
-        case .LT: break
         }
+        timeTableView.reloadData()
     }
     
     @IBAction func addRow(_ sender: Any) {
         switch self.mode {
         case .Normal: break
-        case .Panel:
-            timeLinePanel.append((done: false, title: "notitle", minute: 1))
+        case .Panel, .LT:
+            timeLine.add(mode: self.mode)
             timeTableView.reloadData()
-        case .LT: break
         }
     }
     
@@ -254,13 +256,9 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     @IBAction func deleteRow(_ sender: Any) {
         switch self.mode {
         case .Normal: break
-        case .Panel:
-            if timeTableView.selectedRow < 0 {
-                return
-            }
-            timeLinePanel.remove(at: timeTableView.selectedRow)
+        case .Panel, .LT:
+            timeLine.delete(mode: self.mode, index: timeTableView.selectedRow)
             timeTableView.reloadData()
-        case .LT: break
         }
     }
     
@@ -287,10 +285,10 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 self.imgClapLeft.isHidden = false
                 self.imgClapRight.isHidden = false
             }
-        case .Panel:
+        case .Panel, .LT:
+            timeLine.done(mode: mode, index: timerIndex)
             self.timerIndex += 1
-            self.timeLinePanel[timerIndex-1].done = true
-            if self.timerIndex >= self.timeLinePanel.count {
+            if self.timerIndex >= self.timeLine.get(mode: mode).count {
                 self.timerIndex = -1
             } else {
                 startTimer()
@@ -301,7 +299,6 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 self.buttonReset.isEnabled = true
                 self.timeTableView.reloadData()
             }
-        case .LT:
             _ = 0
         }
         
@@ -335,7 +332,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     // MARK: - NSTableView
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return timeLinePanel.count
+        return timeLine.get(mode: mode).count
     }
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
@@ -344,11 +341,11 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         }
         
         if id == "AutomaticTableColumnIdentifier.0" {
-            return timeLinePanel[row].done ? "✓" : ""
+            return timeLine.get(mode: self.mode)[row].done ? "✓" : ""
         } else if id == "AutomaticTableColumnIdentifier.1" {
-            return timeLinePanel[row].title
+            return timeLine.get(mode: self.mode)[row].title
         } else if id == "AutomaticTableColumnIdentifier.2" {
-            return String(timeLinePanel[row].minute)
+            return String(timeLine.get(mode: self.mode)[row].minute)
         } else {
             return ""
         }
@@ -365,12 +362,12 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         if id == "AutomaticTableColumnIdentifier.0" {
             return
         } else if id == "AutomaticTableColumnIdentifier.1" {
-            timeLinePanel[row].title = text
+            timeLine.set(mode: mode, index: row, title: text)
         } else if id == "AutomaticTableColumnIdentifier.2" {
             guard let min = Int(text) else {
                 return
             }
-            timeLinePanel[row].minute = min
+            timeLine.set(mode: mode, index: row, minute: min)
         } else {
             return
         }

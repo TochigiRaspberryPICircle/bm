@@ -20,7 +20,7 @@ class LTTimer {
     public var min: Int = 0
     public var sec: Int = 0
     
-    static func createTimers(timeLine: [(done: Bool, title: String, minute: Int)], delegate: LTTimerProtocol) -> [LTTimer] {
+    static func createTimers(timeLine: [TimerSettings], delegate: LTTimerProtocol) -> [LTTimer] {
         var timers: [LTTimer] = []
         for t in timeLine {
             let timer = LTTimer(min: t.minute, sec: 0)
