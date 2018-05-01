@@ -948,6 +948,26 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="70b-cc-mFT">
+                                <rect key="frame" x="434" y="44" width="47" height="32"/>
+                                <buttonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ULY-Ed-s2n">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="deleteRow:" target="XfG-lQ-9wD" id="T73-CJ-9NF"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R6k-tf-De9">
+                                <rect key="frame" x="387" y="44" width="49" height="32"/>
+                                <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dok-lV-eFu">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="addRow:" target="XfG-lQ-9wD" id="fpo-2h-j4y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="3V2-ex-WlP"/>
@@ -963,15 +983,21 @@
                             <constraint firstAttribute="bottom" secondItem="iMU-xV-rhH" secondAttribute="bottom" constant="20" id="Wt7-Ej-6yO"/>
                             <constraint firstItem="2Ro-95-j96" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="Z7o-bx-oWW"/>
                             <constraint firstAttribute="trailing" secondItem="A3p-ca-pqc" secondAttribute="trailing" constant="25" id="ZRT-U7-4fF"/>
+                            <constraint firstItem="70b-cc-mFT" firstAttribute="leading" secondItem="R6k-tf-De9" secondAttribute="trailing" constant="10" id="bV7-Qa-l6B"/>
                             <constraint firstItem="3Tu-Rq-LqN" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fbN-5z-7hC"/>
                             <constraint firstItem="AvO-4p-RhJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="ffx-WC-dbT"/>
                             <constraint firstItem="iMU-xV-rhH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="hdc-Ah-tWo"/>
                             <constraint firstAttribute="trailing" secondItem="fct-Fl-9W2" secondAttribute="trailing" constant="30" id="hxh-JR-hnj"/>
+                            <constraint firstItem="A3p-ca-pqc" firstAttribute="top" secondItem="70b-cc-mFT" secondAttribute="bottom" constant="10" id="kTA-9a-Zo5"/>
+                            <constraint firstAttribute="trailing" secondItem="70b-cc-mFT" secondAttribute="trailing" constant="25" id="mah-S9-rQX"/>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="30" id="rrL-TM-kz4"/>
                             <constraint firstItem="Kln-qt-U0M" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="uel-Sy-laF"/>
+                            <constraint firstItem="A3p-ca-pqc" firstAttribute="top" secondItem="R6k-tf-De9" secondAttribute="bottom" constant="10" id="zp2-3q-ogR"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonAddRow" destination="R6k-tf-De9" id="GgD-IL-cNQ"/>
+                        <outlet property="buttonDeleteRow" destination="70b-cc-mFT" id="SBf-IH-A54"/>
                         <outlet property="buttonModes" destination="A3p-ca-pqc" id="KdN-Br-RUz"/>
                         <outlet property="buttonReset" destination="pl3-GR-SfD" id="nNb-y2-pxU"/>
                         <outlet property="buttonStart" destination="tfu-Qb-Imk" id="qlg-Sc-3gL"/>
