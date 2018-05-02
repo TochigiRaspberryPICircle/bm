@@ -106,21 +106,6 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         }
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
-//        guard let textField: NSTextField = obj.object as? NSTextField else {
-//            return
-//        }
-//        guard let numberTime = Int(textField.stringValue) else {
-//            return
-//        }
-        
-//        if textField == textFieldMinute {
-//            settime = (numberTime, settime.sec)
-//        } else if textField == textFieldSecond {
-//            settime = (settime.min, numberTime)
-//        }
-    }
-    
     // MARK: - IBAction
     
     private func startTimer() {
@@ -149,19 +134,16 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                     timeLine.done(mode: mode, index: i)
                     timeTableView.reloadData()
                 }
-                self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: 0)
+                self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
                 return
             }
             
             if timeLine.get(mode: self.mode).count == 0 {
                 return
-            } else if timeLine.get(mode: self.mode).count == 1 {
-                print("1")
-            } else if timeLine.get(mode: self.mode).count > 1 {
-                print(">=1")
             }
             self.labelRemainingTime.stringValue = timeLine.get(mode: self.mode)[timerIndex].title
             self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+            
             DispatchQueue.main.async {
                 if !self.buttonStart.isEnabled { return }
                 self.buttonStart.isEnabled = false
@@ -277,30 +259,23 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     func finish() {
-        switch self.mode {
-        case .Normal:
-            DispatchQueue.main.async {
-                self.buttonStart.isEnabled = true
-                self.buttonStop.isEnabled = false
-                self.buttonReset.isEnabled = true
-                self.labelSetTime.stringValue = "888888"
-                self.labelRemainingTime.stringValue = "88888888"
-                self.imgClapLeft.isHidden = false
-                self.imgClapRight.isHidden = false
-            }
-        case .Settings:
-            timeLine.done(mode: mode, index: timerIndex)
-            self.timerIndex += 1
-            if self.timerIndex >= self.timeLine.get(mode: mode).count {
-                self.timerIndex = -1
-            } else {
-                startTimer()
-            }
-            DispatchQueue.main.async {
-                self.buttonStart.isEnabled = true
-                self.buttonStop.isEnabled = false
-                self.buttonReset.isEnabled = true
-                self.timeTableView.reloadData()
+        DispatchQueue.main.async {
+            self.buttonStart.isEnabled = true
+            self.buttonStop.isEnabled = false
+            self.buttonReset.isEnabled = true
+            self.labelSetTime.stringValue = "888888"
+            self.labelRemainingTime.stringValue = "88888888"
+            self.imgClapLeft.isHidden = false
+            self.imgClapRight.isHidden = false
+        }
+        // TODO: -
+        timeLine.done(mode: mode, index: timerIndex)
+        self.timerIndex += 1
+        if self.timerIndex >= self.timeLine.get(mode: mode).count {
+            self.timerIndex = -1
+        } else {
+            Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { (t) in
+                self.startTimer()
             }
         }
         

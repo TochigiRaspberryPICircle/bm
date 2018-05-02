@@ -749,7 +749,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="aEW-OI-1eb"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="vcT-PV-nwm"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="とてか5" id="du9-uT-MPc">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="とてか05" id="du9-uT-MPc">
                                     <font key="font" size="65" name="Osaka-Mono"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
