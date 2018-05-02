@@ -10,17 +10,14 @@ import Foundation
 
 enum TimerMode {
     case Normal
-    case Panel
-    case LT
+    case Settings
     
     static func create(mode: String) -> TimerMode {
         switch mode {
         case "Normal":
             return TimerMode.Normal
-        case "Panel":
-            return TimerMode.Panel
-        case "LT":
-            return TimerMode.LT
+        case "Settings":
+            return TimerMode.Settings
         default:
             return TimerMode.Normal
         }

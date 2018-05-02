@@ -31,40 +31,26 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         get { return (remainingMin, remainingSec) }
         set(t) {
             (remainingMin, remainingSec) = (t.min, t.sec)
-            labelRemainingTime.stringValue = "\(String(format: "%02d", remainingMin)):\(String(format: "%02d", remainingSec))"
+            labelSetTime.stringValue = "\(String(format: "%02d", remainingMin)):\(String(format: "%02d", remainingSec))"
         }
     }
-    var mode: TimerMode = TimerMode.Normal
+    var mode = TimerMode.Normal
     let baseURL = "http://raspberrypi.local"
     var timeLine = TimeLine()
-    
-//    var timeLinePanel: [(done: Bool, title: String, minute: Int)] = [
-//        (false, "パネル1 - イントロ", 22),
-//        (false, "パネル1 - お題1", 12),
-//        (false, "パネル1 - お題2", 12),
-//        (false, "パネル1 - お題3", 12),
-//        (false, "パネル1 - お題4", 12),
-//        (false, "パネル2 - イントロ", 22),
-//        (false, "パネル2 - お題1", 12),
-//        (false, "パネル2 - お題2", 12),
-//        (false, "パネル2 - お題3", 12),
-//        (false, "パネル2 - お題4", 12),
-//    ]
-//    var timeLineLT: [(done: Bool, title: String, minute: Int)] = []
-    
-    var timerIndex: Int = 0
+    var timerIndex = 0
     
     // MARK: - UI Parts
     
     @IBOutlet weak var buttonStart: NSButton!
     @IBOutlet weak var buttonStop: NSButton!
     @IBOutlet weak var buttonReset: NSButton!
+    
     @IBOutlet weak var imgClapLeft: NSImageView!
     @IBOutlet weak var imgClapRight: NSImageView!
+    
     @IBOutlet weak var labelSetTime: NSTextField!
     @IBOutlet weak var labelRemainingTime: NSTextField!
-    @IBOutlet weak var textFieldMinute: NSTextField!
-    @IBOutlet weak var textFieldSecond: NSTextField!
+    
     @IBOutlet weak var buttonModes: NSPopUpButton!
     
     @IBOutlet weak var scrollView: NSScrollView!
@@ -121,29 +107,23 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     override func controlTextDidChange(_ obj: Notification) {
-        guard let textField: NSTextField = obj.object as? NSTextField else {
-            return
-        }
-        guard let numberTime = Int(textField.stringValue) else {
-            return
-        }
+//        guard let textField: NSTextField = obj.object as? NSTextField else {
+//            return
+//        }
+//        guard let numberTime = Int(textField.stringValue) else {
+//            return
+//        }
         
-        if textField == textFieldMinute {
-            settime = (numberTime, settime.sec)
-        } else if textField == textFieldSecond {
-            settime = (settime.min, numberTime)
-        }
+//        if textField == textFieldMinute {
+//            settime = (numberTime, settime.sec)
+//        } else if textField == textFieldSecond {
+//            settime = (settime.min, numberTime)
+//        }
     }
     
     // MARK: - IBAction
     
     private func startTimer() {
-        DispatchQueue.main.async {
-            if !self.buttonStart.isEnabled { return }
-            self.buttonStart.isEnabled = false
-            self.buttonStop.isEnabled = true
-            self.buttonReset.isEnabled = false
-        }
         
         if let remainingTimeSec = self.ltTimer.remainingTimeSec {
             if remainingTimeSec > 0 {
@@ -155,19 +135,14 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 }
             }
         }
+        
+        DispatchQueue.main.async {
+            self.imgClapLeft.isHidden = true
+            self.imgClapRight.isHidden = true
+        }
 
         switch self.mode {
         case .Normal:
-            DispatchQueue.main.async {
-                self.imgClapLeft.isHidden = true
-                self.imgClapRight.isHidden = true
-            }
-            
-        case .Panel, .LT:
-            if timeLine.get(mode: self.mode).count == 0 {
-                // TODO: - UIパーツのロジックの整理
-                return
-            }
             if timerIndex < 0 {
                 timerIndex = 0
                 for i in (0 ..< timeLine.get(mode: self.mode).count) {
@@ -178,11 +153,27 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 return
             }
             
-            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: 0)
+            if timeLine.get(mode: self.mode).count == 0 {
+                return
+            } else if timeLine.get(mode: self.mode).count == 1 {
+                print("1")
+            } else if timeLine.get(mode: self.mode).count > 1 {
+                print(">=1")
+            }
+            self.labelRemainingTime.stringValue = timeLine.get(mode: self.mode)[timerIndex].title
+            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+            DispatchQueue.main.async {
+                if !self.buttonStart.isEnabled { return }
+                self.buttonStart.isEnabled = false
+                self.buttonStop.isEnabled = true
+                self.buttonReset.isEnabled = false
+            }
             DispatchQueue.main.async {
                 self.timeTableView.deselectRow(self.timerIndex-1)
                 self.timeTableView.selectRowIndexes(IndexSet(integer: self.timerIndex), byExtendingSelection: false)
             }
+        case .Settings:
+            break
         }
     }
     
@@ -191,10 +182,8 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         switch self.mode {
         case .Normal:
             self.ltTimer.stop()
-        case .Panel:
+        case .Settings:
             self.ltTimer.stop()
-        case .LT:
-            _ = 0
         }
         
         DispatchQueue.main.async {
@@ -216,6 +205,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         // TODO: -
         settime = (0, 0)
         remainingTime = (0, 0)
+        timeLine.reset(mode: self.mode, index: self.timerIndex)
         ltTimer.reset()
     }
     
@@ -225,20 +215,29 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         case .Normal:
             labelSetTime.isHidden = false
             labelRemainingTime.isHidden = false
-            textFieldMinute.isHidden = false
-            textFieldSecond.isHidden = false
+            
             scrollView.isHidden = true
             timeTableView.isHidden = true
+            
             buttonAddRow.isHidden = true
             buttonDeleteRow.isHidden = true
-        case .Panel, .LT:
+            
+            buttonStart.isHidden = false
+            buttonReset.isHidden = false
+            buttonStop.isHidden = false
+        case .Settings:
             labelSetTime.isHidden = true
-            textFieldMinute.isHidden = true
-            textFieldSecond.isHidden = true
+            labelRemainingTime.isHidden = true
+            
             scrollView.isHidden = false
             timeTableView.isHidden = false
+            
             buttonAddRow.isHidden = false
             buttonDeleteRow.isHidden = false
+            
+            buttonStart.isHidden = true
+            buttonReset.isHidden = true
+            buttonStop.isHidden = true
         }
         timeTableView.reloadData()
     }
@@ -246,17 +245,16 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     @IBAction func addRow(_ sender: Any) {
         switch self.mode {
         case .Normal: break
-        case .Panel, .LT:
+        case .Settings:
             timeLine.add(mode: self.mode)
             timeTableView.reloadData()
         }
     }
     
-    
     @IBAction func deleteRow(_ sender: Any) {
         switch self.mode {
         case .Normal: break
-        case .Panel, .LT:
+        case .Settings:
             timeLine.delete(mode: self.mode, index: timeTableView.selectedRow)
             timeTableView.reloadData()
         }
@@ -270,6 +268,11 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         let request = URLRequest(url: url!, timeoutInterval: 5)
         Alamofire.request(request).responseString { (res) in
             print(res)
+        }
+        
+        DispatchQueue.main.async {
+            self.labelRemainingTime.isHidden = false
+            self.labelRemainingTime.stringValue = "拍手の準備を！"
         }
     }
     
@@ -285,7 +288,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 self.imgClapLeft.isHidden = false
                 self.imgClapRight.isHidden = false
             }
-        case .Panel, .LT:
+        case .Settings:
             timeLine.done(mode: mode, index: timerIndex)
             self.timerIndex += 1
             if self.timerIndex >= self.timeLine.get(mode: mode).count {
@@ -299,9 +302,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 self.buttonReset.isEnabled = true
                 self.timeTableView.reloadData()
             }
-            _ = 0
         }
-        
         
         print("[mac -> raspi]: GET /finish")
         let url = URL(string: baseURL + "/finish")
@@ -336,9 +337,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard let id = tableColumn?.identifier.rawValue else {
-            return ""
-        }
+        guard let id = tableColumn?.identifier.rawValue else { return "" }
         
         if id == "AutomaticTableColumnIdentifier.0" {
             return timeLine.get(mode: self.mode)[row].done ? "✓" : ""
@@ -346,18 +345,16 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             return timeLine.get(mode: self.mode)[row].title
         } else if id == "AutomaticTableColumnIdentifier.2" {
             return String(timeLine.get(mode: self.mode)[row].minute)
+        } else if id == "AutomaticTableColumnIdentifier.3" {
+            return String(timeLine.get(mode: self.mode)[row].second)
         } else {
             return ""
         }
     }
     
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        guard let id = tableColumn?.identifier.rawValue else {
-            return
-        }
-        guard let text = object as? String else {
-            return
-        }
+        guard let id = tableColumn?.identifier.rawValue else { return }
+        guard let text = object as? String else { return }
         
         if id == "AutomaticTableColumnIdentifier.0" {
             return
@@ -368,8 +365,12 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 return
             }
             timeLine.set(mode: mode, index: row, minute: min)
-        } else {
-            return
+        } else if id == "AutomaticTableColumnIdentifier.3" {
+            guard let sec = Int(text) else {
+                return
+            }
+            timeLine.set(mode: mode, index: row, second: sec)
+            print(timeLine.timerSettings)
         }
     }
     

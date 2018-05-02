@@ -8,4 +8,4 @@
 
 import Foundation
 
-typealias TimerSettings = (done: Bool, title: String, minute: Int)
+typealias TimerSettings = (done: Bool, title: String, minute: Int, second: Int)
