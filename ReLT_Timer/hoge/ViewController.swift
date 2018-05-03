@@ -37,28 +37,22 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     var mode = TimerMode.Normal
     let baseURL = "http://raspberrypi.local"
     var timeLine = TimeLine()
-    var timerIndex = 0
+    var timerIndex = -1
     
     // MARK: - UI Parts
     
     @IBOutlet weak var buttonStart: NSButton!
     @IBOutlet weak var buttonStop: NSButton!
-    @IBOutlet weak var buttonReset: NSButton!
-    
     @IBOutlet weak var imgClapLeft: NSImageView!
     @IBOutlet weak var imgClapRight: NSImageView!
-    
     @IBOutlet weak var labelSetTime: NSTextField!
     @IBOutlet weak var labelRemainingTime: NSTextField!
-    
     @IBOutlet weak var buttonModes: NSPopUpButton!
-    
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var timeTableView: NSTableView!
-    
     @IBOutlet weak var buttonAddRow: NSButton!
     @IBOutlet weak var buttonDeleteRow: NSButton!
-    
+    @IBOutlet weak var buttonResetTimeLine: NSButton!
     
     // MARK: - NSViewController
     
@@ -78,20 +72,23 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         scrollView.isHidden = true
         timeTableView.isHidden = true
         buttonStop.isEnabled = false
-
         buttonAddRow.isHidden = true
         buttonDeleteRow.isHidden = true
+        buttonResetTimeLine.isHidden = true
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        // MARK: - HTTP Server
+        if timeLine.get(mode: mode).count == 0 {
+            buttonStart.isEnabled = false
+        } else {
+            buttonStart.isEnabled = true
+        }
         
         server["/"] = { .ok(.html("You asked for \($0)"))  }
         server["/start"] = self.startTimer
         server["/stop"] = self.stopTimer
-        
         do {
             try server.start(self.port, forceIPv4: true)
             print("Server has started ( port = \(try server.port()) ). Try to connect now...")
@@ -109,7 +106,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     // MARK: - IBAction
     
     private func startTimer() {
-        
+        if timeLine.get(mode: self.mode).count == 0 { return }
         if let remainingTimeSec = self.ltTimer.remainingTimeSec {
             if remainingTimeSec > 0 {
                 do {
@@ -117,45 +114,28 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                     return
                 } catch let error as NSError {
                     print(error.localizedDescription)
+                    return
                 }
             }
         }
         
+        if timerIndex < 0 {
+            timerIndex = 0
+            timeLine.reset()
+        }
+        self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+        
         DispatchQueue.main.async {
+            if !self.buttonStart.isEnabled { return }
             self.imgClapLeft.isHidden = true
             self.imgClapRight.isHidden = true
-        }
-
-        switch self.mode {
-        case .Normal:
-            if timerIndex < 0 {
-                timerIndex = 0
-                for i in (0 ..< timeLine.get(mode: self.mode).count) {
-                    timeLine.done(mode: mode, index: i)
-                    timeTableView.reloadData()
-                }
-                self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
-                return
-            }
-            
-            if timeLine.get(mode: self.mode).count == 0 {
-                return
-            }
-            self.labelRemainingTime.stringValue = timeLine.get(mode: self.mode)[timerIndex].title
-            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
-            
-            DispatchQueue.main.async {
-                if !self.buttonStart.isEnabled { return }
-                self.buttonStart.isEnabled = false
-                self.buttonStop.isEnabled = true
-                self.buttonReset.isEnabled = false
-            }
-            DispatchQueue.main.async {
-                self.timeTableView.deselectRow(self.timerIndex-1)
-                self.timeTableView.selectRowIndexes(IndexSet(integer: self.timerIndex), byExtendingSelection: false)
-            }
-        case .Settings:
-            break
+            self.labelSetTime.stringValue = ""
+            self.labelRemainingTime.stringValue = self.timeLine.get(mode: self.mode)[self.timerIndex].title
+            self.buttonStart.isEnabled = false
+            self.buttonStop.isEnabled = true
+            self.timeTableView.deselectRow(self.timerIndex-1)
+            self.timeTableView.selectRowIndexes(IndexSet(integer: self.timerIndex), byExtendingSelection: false)
+            self.timeTableView.reloadData()
         }
     }
     
@@ -171,11 +151,13 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         DispatchQueue.main.async {
             self.buttonStart.isEnabled = true
             self.buttonStop.isEnabled = false
-            self.buttonReset.isEnabled = true
         }
     }
     
     @IBAction func startTimer(_ sender: Any) {
+        if timeLine.get(mode: self.mode).count == 0 {
+            return
+        }
         startTimer()
     }
     
@@ -183,43 +165,36 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         stopTimer()
     }
     
-    @IBAction func resetTimer(_ sender: Any) {
-        // TODO: -
-        settime = (0, 0)
-        remainingTime = (0, 0)
-        timeLine.reset(mode: self.mode, index: self.timerIndex)
-        ltTimer.reset()
-    }
-    
     @IBAction func changeMode(_ sender: Any) {
         self.mode = TimerMode.create(mode: buttonModes.title)
         switch self.mode {
         case .Normal:
+            if timeLine.get(mode: mode).count == 0 {
+                buttonStart.isEnabled = false
+            } else {
+                buttonStart.isEnabled = true
+            }
             labelSetTime.isHidden = false
             labelRemainingTime.isHidden = false
-            
             scrollView.isHidden = true
             timeTableView.isHidden = true
-            
             buttonAddRow.isHidden = true
             buttonDeleteRow.isHidden = true
-            
             buttonStart.isHidden = false
-            buttonReset.isHidden = false
             buttonStop.isHidden = false
+            buttonResetTimeLine.isHidden = true
         case .Settings:
             labelSetTime.isHidden = true
             labelRemainingTime.isHidden = true
-            
             scrollView.isHidden = false
             timeTableView.isHidden = false
-            
             buttonAddRow.isHidden = false
             buttonDeleteRow.isHidden = false
-            
             buttonStart.isHidden = true
-            buttonReset.isHidden = true
             buttonStop.isHidden = true
+            buttonResetTimeLine.isHidden = false
+            imgClapLeft.isHidden = true
+            imgClapRight.isHidden = true
         }
         timeTableView.reloadData()
     }
@@ -242,6 +217,13 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         }
     }
     
+    @IBAction func resetTimeLine(_ sender: Any) {
+        timerIndex = 0
+        timeLine.reset()
+        timeTableView.reloadData()
+    }
+    
+    
     // MARK: - LTTimerProtocol
     
     func lastspurt() {
@@ -262,13 +244,12 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         DispatchQueue.main.async {
             self.buttonStart.isEnabled = true
             self.buttonStop.isEnabled = false
-            self.buttonReset.isEnabled = true
             self.labelSetTime.stringValue = "888888"
             self.labelRemainingTime.stringValue = "88888888"
             self.imgClapLeft.isHidden = false
             self.imgClapRight.isHidden = false
         }
-        // TODO: -
+        
         timeLine.done(mode: mode, index: timerIndex)
         self.timerIndex += 1
         if self.timerIndex >= self.timeLine.get(mode: mode).count {

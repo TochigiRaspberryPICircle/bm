@@ -9,6 +9,7 @@
 import Foundation
 
 class TimeLine {
+    var index = 0
     var timerSettings: [TimerSettings] = []
     
     func add(mode: TimerMode) {
@@ -41,7 +42,13 @@ class TimeLine {
     }
     
     func reset(mode: TimerMode, index: Int) {
-        timerSettings[index].minute = 0
-        timerSettings[index].second = 0
+//        timerSettings[index].minute = 0
+//        timerSettings[index].second = 0
+    }
+    
+    func reset() {
+        for i in (0 ..< timerSettings.count) {
+            timerSettings[i].done = false
+        }
     }
 }

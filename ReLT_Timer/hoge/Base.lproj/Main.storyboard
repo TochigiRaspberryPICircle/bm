@@ -772,7 +772,7 @@
                                 </connections>
                             </popUpButton>
                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iMU-xV-rhH">
-                                <rect key="frame" x="25" y="20" width="241" height="21"/>
+                                <rect key="frame" x="25" y="20" width="158" height="21"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tfu-Qb-Imk">
                                         <rect key="frame" x="-6" y="-7" width="87" height="32"/>
@@ -800,31 +800,15 @@
                                             <action selector="stopTimer:" target="XfG-lQ-9wD" id="hb1-gF-tgx"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pl3-GR-SfD">
-                                        <rect key="frame" x="160" y="-7" width="87" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="g1I-HR-XdE"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="01N-JZ-TV7">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="resetTimer:" target="XfG-lQ-9wD" id="FSX-J8-1jP"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="KxT-uX-zyc" firstAttribute="width" secondItem="pl3-GR-SfD" secondAttribute="width" id="WhR-jJ-CiD"/>
                                     <constraint firstItem="tfu-Qb-Imk" firstAttribute="width" secondItem="KxT-uX-zyc" secondAttribute="width" id="e5X-xj-wYr"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
-                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
@@ -939,6 +923,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uvx-Me-CXd">
+                                <rect key="frame" x="314" y="44" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7ag-gF-4Ov">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="resetTimeLine:" target="XfG-lQ-9wD" id="jEI-Wn-aoF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="3V2-ex-WlP"/>
@@ -955,9 +949,11 @@
                             <constraint firstItem="2Ro-95-j96" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="Z7o-bx-oWW"/>
                             <constraint firstAttribute="trailing" secondItem="A3p-ca-pqc" secondAttribute="trailing" constant="25" id="ZRT-U7-4fF"/>
                             <constraint firstItem="70b-cc-mFT" firstAttribute="leading" secondItem="R6k-tf-De9" secondAttribute="trailing" constant="10" id="bV7-Qa-l6B"/>
+                            <constraint firstItem="R6k-tf-De9" firstAttribute="leading" secondItem="uvx-Me-CXd" secondAttribute="trailing" constant="10" id="dUT-tG-6Ab"/>
                             <constraint firstItem="3Tu-Rq-LqN" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fbN-5z-7hC"/>
                             <constraint firstItem="iMU-xV-rhH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="hdc-Ah-tWo"/>
                             <constraint firstItem="A3p-ca-pqc" firstAttribute="top" secondItem="70b-cc-mFT" secondAttribute="bottom" constant="10" id="kTA-9a-Zo5"/>
+                            <constraint firstItem="R6k-tf-De9" firstAttribute="bottom" secondItem="uvx-Me-CXd" secondAttribute="bottom" id="lEZ-Cv-22i"/>
                             <constraint firstAttribute="trailing" secondItem="fct-Fl-9W2" secondAttribute="trailing" constant="20" id="lil-Hl-Oyw"/>
                             <constraint firstAttribute="trailing" secondItem="70b-cc-mFT" secondAttribute="trailing" constant="25" id="mah-S9-rQX"/>
                             <constraint firstItem="Kln-qt-U0M" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="uel-Sy-laF"/>
@@ -968,7 +964,7 @@
                         <outlet property="buttonAddRow" destination="R6k-tf-De9" id="GgD-IL-cNQ"/>
                         <outlet property="buttonDeleteRow" destination="70b-cc-mFT" id="SBf-IH-A54"/>
                         <outlet property="buttonModes" destination="A3p-ca-pqc" id="KdN-Br-RUz"/>
-                        <outlet property="buttonReset" destination="pl3-GR-SfD" id="nNb-y2-pxU"/>
+                        <outlet property="buttonResetTimeLine" destination="uvx-Me-CXd" id="y1C-T8-E0m"/>
                         <outlet property="buttonStart" destination="tfu-Qb-Imk" id="qlg-Sc-3gL"/>
                         <outlet property="buttonStop" destination="KxT-uX-zyc" id="4rS-5r-U3P"/>
                         <outlet property="imgClapLeft" destination="2Ro-95-j96" id="m5i-MN-jVW"/>
