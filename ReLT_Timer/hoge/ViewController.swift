@@ -12,6 +12,7 @@ import SwiftyJSON
 import Dispatch
 import Alamofire
 
+
 class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NSTableViewDataSource {
     
     let center = NotificationCenter.default
@@ -53,6 +54,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     @IBOutlet weak var buttonAddRow: NSButton!
     @IBOutlet weak var buttonDeleteRow: NSButton!
     @IBOutlet weak var buttonResetTimeLine: NSButton!
+    @IBOutlet weak var imgLion: NSImageView!
     
     // MARK: - NSViewController
     
@@ -75,6 +77,10 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         buttonAddRow.isHidden = true
         buttonDeleteRow.isHidden = true
         buttonResetTimeLine.isHidden = true
+        
+        //imgLion.isHidden = true
+        imgLion.isHidden = false
+        imgLion.image = NSImage(named: NSImage.Name(rawValue: "toteka"))
     }
     
     override func viewDidAppear() {
@@ -129,6 +135,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             if !self.buttonStart.isEnabled { return }
             self.imgClapLeft.isHidden = true
             self.imgClapRight.isHidden = true
+            self.imgLion.isHidden = true
             self.labelSetTime.stringValue = ""
             self.labelRemainingTime.stringValue = self.timeLine.get(mode: self.mode)[self.timerIndex].title
             self.buttonStart.isEnabled = false
@@ -140,7 +147,6 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     private func stopTimer() {
-
         switch self.mode {
         case .Normal:
             self.ltTimer.stop()
@@ -174,6 +180,12 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             } else {
                 buttonStart.isEnabled = true
             }
+            print(timerIndex)
+            if timerIndex < 0 {
+                labelRemainingTime.stringValue = ""
+                imgLion.image = NSImage(named: NSImage.Name(rawValue: "toteka"))
+                imgLion.isHidden = false
+            }
             labelSetTime.isHidden = false
             labelRemainingTime.isHidden = false
             scrollView.isHidden = true
@@ -195,6 +207,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             buttonResetTimeLine.isHidden = false
             imgClapLeft.isHidden = true
             imgClapRight.isHidden = true
+            imgLion.isHidden = true
         }
         timeTableView.reloadData()
     }
@@ -218,7 +231,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     @IBAction func resetTimeLine(_ sender: Any) {
-        timerIndex = 0
+        timerIndex = -1
         timeLine.reset()
         timeTableView.reloadData()
     }
@@ -236,7 +249,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         
         DispatchQueue.main.async {
             self.labelRemainingTime.isHidden = false
-            self.labelRemainingTime.stringValue = "拍手の準備を！"
+            self.labelRemainingTime.stringValue = "拍手の準備をッ！！！"
         }
     }
     
@@ -244,10 +257,18 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         DispatchQueue.main.async {
             self.buttonStart.isEnabled = true
             self.buttonStop.isEnabled = false
-            self.labelSetTime.stringValue = "888888"
-            self.labelRemainingTime.stringValue = "88888888"
-            self.imgClapLeft.isHidden = false
-            self.imgClapRight.isHidden = false
+            
+            self.imgLion.image = NSImage(named: NSImage.Name(rawValue: "lion"))
+            NSAnimationContext.runAnimationGroup({ (context) in
+                context.duration = 1.0
+                self.labelSetTime.animator().stringValue = ""
+                self.labelRemainingTime.animator().stringValue = "88888888"
+                self.imgClapLeft.animator().isHidden = false
+                self.imgClapRight.animator().isHidden = false
+                self.imgLion.animator().isHidden = false
+            }, completionHandler: {
+                
+            })
         }
         
         timeLine.done(mode: mode, index: timerIndex)

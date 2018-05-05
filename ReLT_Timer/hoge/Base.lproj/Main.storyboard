@@ -749,7 +749,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="aEW-OI-1eb"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="vcT-PV-nwm"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="とてか05" id="du9-uT-MPc">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="du9-uT-MPc">
                                     <font key="font" size="65" name="Osaka-Mono"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -834,13 +834,13 @@
                                 </connections>
                             </button>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fct-Fl-9W2">
-                                <rect key="frame" x="20" y="70" width="460" height="130"/>
+                                <rect key="frame" x="20" y="75" width="460" height="120"/>
                                 <clipView key="contentView" id="Wlt-xl-hDR">
-                                    <rect key="frame" x="1" y="0.0" width="458" height="129"/>
+                                    <rect key="frame" x="1" y="0.0" width="458" height="119"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="VYt-fC-Xju" viewBased="YES" id="L5t-BV-Vi7">
-                                            <rect key="frame" x="0.0" y="1" width="458" height="106"/>
+                                            <rect key="frame" x="0.0" y="1" width="458" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -907,7 +907,7 @@
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="4vb-Eb-Xu7"/>
+                                    <constraint firstAttribute="height" constant="120" id="4vb-Eb-Xu7"/>
                                     <constraint firstAttribute="width" constant="460" id="vMG-aQ-tXw"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="QX3-KD-Hw1">
@@ -933,6 +933,14 @@
                                     <action selector="resetTimeLine:" target="XfG-lQ-9wD" id="jEI-Wn-aoF"/>
                                 </connections>
                             </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2zL-7I-mui">
+                                <rect key="frame" x="150" y="35" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="2zL-7I-mui" secondAttribute="height" multiplier="1:1" id="AFF-Ea-GG3"/>
+                                    <constraint firstAttribute="width" constant="200" id="e8t-uk-bLD"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="lion" id="uC2-JD-oxk"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="3V2-ex-WlP"/>
@@ -952,11 +960,13 @@
                             <constraint firstItem="R6k-tf-De9" firstAttribute="leading" secondItem="uvx-Me-CXd" secondAttribute="trailing" constant="10" id="dUT-tG-6Ab"/>
                             <constraint firstItem="3Tu-Rq-LqN" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fbN-5z-7hC"/>
                             <constraint firstItem="iMU-xV-rhH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="hdc-Ah-tWo"/>
+                            <constraint firstItem="2zL-7I-mui" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="jKv-LN-Irm"/>
                             <constraint firstItem="A3p-ca-pqc" firstAttribute="top" secondItem="70b-cc-mFT" secondAttribute="bottom" constant="10" id="kTA-9a-Zo5"/>
                             <constraint firstItem="R6k-tf-De9" firstAttribute="bottom" secondItem="uvx-Me-CXd" secondAttribute="bottom" id="lEZ-Cv-22i"/>
                             <constraint firstAttribute="trailing" secondItem="fct-Fl-9W2" secondAttribute="trailing" constant="20" id="lil-Hl-Oyw"/>
                             <constraint firstAttribute="trailing" secondItem="70b-cc-mFT" secondAttribute="trailing" constant="25" id="mah-S9-rQX"/>
                             <constraint firstItem="Kln-qt-U0M" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="uel-Sy-laF"/>
+                            <constraint firstItem="2zL-7I-mui" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="x22-42-6jA"/>
                             <constraint firstItem="A3p-ca-pqc" firstAttribute="top" secondItem="R6k-tf-De9" secondAttribute="bottom" constant="10" id="zp2-3q-ogR"/>
                         </constraints>
                     </view>
@@ -969,6 +979,7 @@
                         <outlet property="buttonStop" destination="KxT-uX-zyc" id="4rS-5r-U3P"/>
                         <outlet property="imgClapLeft" destination="2Ro-95-j96" id="m5i-MN-jVW"/>
                         <outlet property="imgClapRight" destination="ewe-FG-0PT" id="sPI-He-nt5"/>
+                        <outlet property="imgLion" destination="2zL-7I-mui" id="e0h-fM-L3k"/>
                         <outlet property="labelRemainingTime" destination="3Tu-Rq-LqN" id="Xn5-mO-MTF"/>
                         <outlet property="labelSetTime" destination="Kln-qt-U0M" id="wrY-Z4-fiV"/>
                         <outlet property="scrollView" destination="fct-Fl-9W2" id="7Xp-yn-JXI"/>
@@ -984,5 +995,6 @@
     <resources>
         <image name="clap_left" width="128" height="128"/>
         <image name="clap_right" width="128" height="128"/>
+        <image name="lion" width="1000" height="1000"/>
     </resources>
 </document>
