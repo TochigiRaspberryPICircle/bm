@@ -42,8 +42,8 @@ class TimeLine {
     }
     
     func reset(mode: TimerMode, index: Int) {
-//        timerSettings[index].minute = 0
-//        timerSettings[index].second = 0
+        timerSettings[index].minute = 0
+        timerSettings[index].second = 0
     }
     
     func reset() {

@@ -941,8 +941,39 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="lion" id="uC2-JD-oxk"/>
                             </imageView>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aq6-Jm-D2P">
+                                <rect key="frame" x="179" y="48" width="134" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="インターバル 10秒" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OWl-ra-Xrf" id="CZI-uY-81R">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="12" name=".AppleSystemUIFont"/>
+                                    <menu key="menu" id="9RN-Gd-WuK">
+                                        <items>
+                                            <menuItem title="インターバル 0秒" id="kQP-6U-fUV"/>
+                                            <menuItem title="インターバル 5秒" state="on" id="BiG-CQ-TNN"/>
+                                            <menuItem title="インターバル 10秒" state="on" id="OWl-ra-Xrf"/>
+                                            <menuItem title="インターバル 30秒" id="p9a-pO-V3Y"/>
+                                            <menuItem title="インターバル 60秒" id="cQO-lO-N2P"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="changeTimerIntervals:" target="XfG-lQ-9wD" id="R1g-nP-OJk"/>
+                                </connections>
+                            </popUpButton>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kfh-n5-qJB">
+                                <rect key="frame" x="88" y="53" width="85" height="18"/>
+                                <buttonCell key="cell" type="check" title="Last Spurt" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jGt-AI-mIg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="changeLastSpurt:" target="XfG-lQ-9wD" id="GP5-wb-aHS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="uvx-Me-CXd" firstAttribute="leading" secondItem="aq6-Jm-D2P" secondAttribute="trailing" constant="10" id="17b-DP-XhC"/>
+                            <constraint firstItem="aq6-Jm-D2P" firstAttribute="centerY" secondItem="Kfh-n5-qJB" secondAttribute="centerY" id="2vq-gO-Aq7"/>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="3V2-ex-WlP"/>
                             <constraint firstItem="2Ro-95-j96" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="7u6-rs-LZO"/>
                             <constraint firstItem="Kln-qt-U0M" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="9ke-JN-H9P"/>
@@ -950,6 +981,7 @@
                             <constraint firstItem="3Tu-Rq-LqN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="C0I-If-tZZ"/>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="C2M-a6-AhH"/>
                             <constraint firstItem="ewe-FG-0PT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Cz8-3D-rSb"/>
+                            <constraint firstItem="aq6-Jm-D2P" firstAttribute="leading" secondItem="Kfh-n5-qJB" secondAttribute="trailing" constant="10" id="FLg-Kt-GWt"/>
                             <constraint firstItem="A3p-ca-pqc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="HqO-JD-WDQ"/>
                             <constraint firstItem="fct-Fl-9W2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="QIW-Yb-hbT"/>
                             <constraint firstAttribute="trailing" secondItem="ewe-FG-0PT" secondAttribute="trailing" constant="25" id="Qkm-eu-xSW"/>
@@ -957,6 +989,7 @@
                             <constraint firstItem="2Ro-95-j96" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="Z7o-bx-oWW"/>
                             <constraint firstAttribute="trailing" secondItem="A3p-ca-pqc" secondAttribute="trailing" constant="25" id="ZRT-U7-4fF"/>
                             <constraint firstItem="70b-cc-mFT" firstAttribute="leading" secondItem="R6k-tf-De9" secondAttribute="trailing" constant="10" id="bV7-Qa-l6B"/>
+                            <constraint firstItem="uvx-Me-CXd" firstAttribute="centerY" secondItem="aq6-Jm-D2P" secondAttribute="centerY" id="dC5-VY-n9S"/>
                             <constraint firstItem="R6k-tf-De9" firstAttribute="leading" secondItem="uvx-Me-CXd" secondAttribute="trailing" constant="10" id="dUT-tG-6Ab"/>
                             <constraint firstItem="3Tu-Rq-LqN" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fbN-5z-7hC"/>
                             <constraint firstItem="iMU-xV-rhH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="hdc-Ah-tWo"/>
@@ -973,6 +1006,8 @@
                     <connections>
                         <outlet property="buttonAddRow" destination="R6k-tf-De9" id="GgD-IL-cNQ"/>
                         <outlet property="buttonDeleteRow" destination="70b-cc-mFT" id="SBf-IH-A54"/>
+                        <outlet property="buttonIntervals" destination="aq6-Jm-D2P" id="ZG5-vf-qsQ"/>
+                        <outlet property="buttonLastSpurt" destination="Kfh-n5-qJB" id="I7f-Xw-yr1"/>
                         <outlet property="buttonModes" destination="A3p-ca-pqc" id="KdN-Br-RUz"/>
                         <outlet property="buttonResetTimeLine" destination="uvx-Me-CXd" id="y1C-T8-E0m"/>
                         <outlet property="buttonStart" destination="tfu-Qb-Imk" id="qlg-Sc-3gL"/>

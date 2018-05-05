@@ -14,7 +14,7 @@ class LTTimer {
     private var settimeSec: Double = 0.0
     private var isLastspurtAttached: Bool = false
     
-    public var remainingTimeSec: Double? = nil
+    public var remainingTimeSec: Double? = 0.0
     public var delegate: LTTimerProtocol? = nil
     
     public var min: Int = 0
@@ -85,7 +85,7 @@ class LTTimer {
         clear()
     }
     
-    private func clear() {
+    public func clear() {
         settimeSec = 0.0
         remainingTimeSec = 0.0
     }
