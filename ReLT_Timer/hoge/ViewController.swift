@@ -121,19 +121,6 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         guard let remainingTimeSec = self.ltTimer.remainingTimeSec else {
             return
         }
-        if timerIndex < 0 {
-            ltTimer.reset()
-            timerIndex = 0
-            timeLine.reset()
-            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
-        } else if remainingTimeSec > 0 {
-            do {
-                try self.ltTimer.restart()
-            } catch let error as NSError {
-                print(error.localizedDescription)
-                return
-            }
-        }
         
         DispatchQueue.main.async {
             if !self.buttonStart.isEnabled { return }
@@ -150,6 +137,24 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             self.timeTableView.selectRowIndexes(IndexSet(integer: self.timerIndex), byExtendingSelection: false)
             self.timeTableView.reloadData()
         }
+        
+        if remainingTimeSec > 0 {
+            do {
+                return try self.ltTimer.restart()
+            } catch let error as NSError {
+                print(error.localizedDescription)
+                return
+            }
+        }
+        if timerIndex < 0 {
+            ltTimer.reset()
+            timerIndex = 0
+            timeLine.reset()
+            return self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+        }
+        if timerIndex >= 0 {
+            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+        }
     }
     
     private func stopTimer() {
@@ -162,9 +167,6 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     @IBAction func startTimer(_ sender: Any) {
-        if timeLine.get(mode: self.mode).count == 0 {
-            return
-        }
         startTimer()
     }
     
@@ -329,6 +331,8 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                     self.buttonStart.isEnabled = true
                     self.buttonStop.isEnabled = true
                 }
+                print("次のスタート")
+                print(self.timerIndex)
                 self.startTimer()
             }
         }
