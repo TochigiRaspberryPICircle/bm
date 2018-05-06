@@ -20,6 +20,8 @@ class LTTimer {
     public var min: Int = 0
     public var sec: Int = 0
     
+    public var isCounting = false
+    
     static func createTimers(timeLine: [TimerSettings], delegate: LTTimerProtocol) -> [LTTimer] {
         var timers: [LTTimer] = []
         for t in timeLine {
@@ -52,15 +54,17 @@ class LTTimer {
             throw NSError(domain: "Remaining time not set", code: -1, userInfo: nil)
         }
         self.settimeSec = remainingTimeSec
-        fire()
+        self.fire()
     }
     
     private func fire(interval: Double = 0.05) {
         self.starttime = Date()
+        self.isCounting = true
         self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: self.onUpdate)
     }
     
     private func onUpdate(timer: Timer) {
+        self.isCounting = true
         let elapsedTime = Date().timeIntervalSince(starttime)
         self.remainingTimeSec = ceil(self.settimeSec - elapsedTime)
         
@@ -72,20 +76,23 @@ class LTTimer {
         } else if self.remainingTimeSec! <= 0.0 {
             self.isLastspurtAttached = false
             self.delegate?.finish()
-            timer.invalidate()
+            self.isCounting = false
+            self.timer.invalidate()
         }
     }
     
     public func stop() {
+        self.isCounting = false
         timer.invalidate()
     }
     
     public func reset() {
-        timer.invalidate()
+        self.timer.invalidate()
         clear()
     }
     
     public func clear() {
+        self.isCounting = false
         settimeSec = 0.0
         remainingTimeSec = 0.0
     }

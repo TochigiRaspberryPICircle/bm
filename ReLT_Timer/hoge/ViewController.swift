@@ -121,19 +121,19 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         guard let remainingTimeSec = self.ltTimer.remainingTimeSec else {
             return
         }
-        if remainingTimeSec > 0 {
+        if timerIndex < 0 {
+            ltTimer.reset()
+            timerIndex = 0
+            timeLine.reset()
+            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+        } else if remainingTimeSec > 0 {
             do {
                 try self.ltTimer.restart()
             } catch let error as NSError {
                 print(error.localizedDescription)
                 return
             }
-        } else if timerIndex < 0 {
-            ltTimer.reset()
-            timerIndex = 0
-            timeLine.reset()
         }
-        self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
         
         DispatchQueue.main.async {
             if !self.buttonStart.isEnabled { return }
@@ -153,12 +153,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     }
     
     private func stopTimer() {
-        switch self.mode {
-        case .Normal:
-            self.ltTimer.stop()
-        case .Settings:
-            self.ltTimer.stop()
-        }
+        self.ltTimer.stop()
         
         DispatchQueue.main.async {
             self.buttonStart.isEnabled = true
@@ -181,16 +176,23 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         self.mode = TimerMode.create(mode: buttonModes.title)
         switch self.mode {
         case .Normal:
-            if timeLine.get(mode: mode).count == 0 {
+            if self.ltTimer.isCounting {
                 buttonStart.isEnabled = false
+                buttonStop.isEnabled = true
             } else {
                 buttonStart.isEnabled = true
+                buttonStop.isEnabled = false
+            }
+            if timeLine.get(mode: mode).count == 0 {
+                buttonStart.isEnabled = false
+                buttonStop.isEnabled = false
             }
             if timerIndex < 0 {
                 labelRemainingTime.stringValue = ""
                 imgLion.image = NSImage(named: NSImage.Name(rawValue: "toteka"))
                 imgLion.isHidden = false
             }
+            
             labelSetTime.isHidden = false
             labelRemainingTime.isHidden = false
             scrollView.isHidden = true
@@ -308,7 +310,8 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         notification.informativeText = "終了しました！"
         notification.contentImage =  NSImage(named: NSImage.Name(rawValue: "lion"))
         notification.userInfo = ["title" : "とてか05"]
-        notification.deliveryDate = Date().addingTimeInterval(0.1)
+        notification.soundName = NSUserNotificationDefaultSoundName
+        //notification.deliveryDate = Date().addingTimeInterval(0.1)
         NSUserNotificationCenter.default.deliver(notification)
         
         timeLine.done(mode: mode, index: timerIndex)
