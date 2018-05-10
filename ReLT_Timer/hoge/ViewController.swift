@@ -59,6 +59,13 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     @IBOutlet weak var buttonLastSpurt: NSButton!
     @IBOutlet weak var buttonIntervals: NSPopUpButton!
     
+    
+    
+    // MARK: - Constraint for Responsive
+    
+    @IBOutlet weak var heightLionImage: NSLayoutConstraint!
+    @IBOutlet weak var heightLeftClapImage: NSLayoutConstraint!
+    
     // MARK: - NSViewController
     
     override func viewDidLoad() {
@@ -70,6 +77,22 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         center.addObserver(forName: NSWindow.didResizeNotification, object: nil, queue: nil) { (notification) in
             print("Width:", self.view.window?.frame.size.width ?? 0.0)
             print("Height:", self.view.window?.frame.size.height ?? 0.0)
+            
+            let height = (self.view.window?.frame.size.height)!
+            self.heightLionImage.constant = height * (2.0 / 3.0)
+            self.heightLeftClapImage.constant = height * (1.0 / 4.0)
+            
+            if height < 300 {
+                self.labelSetTime.font = NSFont(name: "Osaka−等幅", size: 50)
+                self.labelRemainingTime.font = NSFont(name: "Osaka−等幅", size: 30)
+            } else if height > 1200 {
+                self.labelSetTime.font = NSFont(name: "Osaka−等幅", size: 500)
+                self.labelRemainingTime.font = NSFont(name: "Osaka−等幅", size: 135)
+            } else {
+                let point_rate = (height - 300) / 1200
+                self.labelSetTime.font = NSFont(name: "Osaka−等幅", size: 450 * point_rate + 55)
+                self.labelRemainingTime.font = NSFont(name: "Osaka−等幅", size: 150 * point_rate + 35)
+            }
         }
         
         imgClapLeft.isHidden = true

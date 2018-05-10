@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         NSUserNotificationCenter.default.delegate = self
         
         let menu = NSMenu()
-        self.statusItem.title = "Sample"
+        self.statusItem.title = "とてか5"
         self.statusItem.highlightMode = true
         self.statusItem.menu = menu
         
