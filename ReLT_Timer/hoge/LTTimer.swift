@@ -9,6 +9,8 @@
 import Cocoa
 
 class LTTimer {
+    
+    
     private var timer = Timer()
     private var starttime = Date()
     private var settimeSec: Double = 0.0
@@ -40,16 +42,19 @@ class LTTimer {
     }
     
     public func start(min: Int, sec: Int) {
+        if isCounting { return }
         self.settimeSec = Double(min * 60 + sec)
         fire()
     }
     
     public func start() {
+        if isCounting { return }
         self.settimeSec = Double(self.min * 60 + self.sec)
         fire()
     }
     
     public func restart() throws {
+        if isCounting { return }
         guard let remainingTimeSec = remainingTimeSec else {
             throw NSError(domain: "Remaining time not set", code: -1, userInfo: nil)
         }
@@ -58,7 +63,6 @@ class LTTimer {
     }
     
     private func fire(interval: Double = 0.05) {
-        print("func fire(...)")
         self.starttime = Date()
         self.isCounting = true
         self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: self.onUpdate)
@@ -66,10 +70,11 @@ class LTTimer {
     }
     
     private func onUpdate(timer: Timer) {
+        self.timer = timer
+        
         self.isCounting = true
         let elapsedTime = Date().timeIntervalSince(starttime)
         self.remainingTimeSec = ceil(self.settimeSec - elapsedTime)
-        
         self.delegate?.onUpdate(remainingSec: Int(self.remainingTimeSec!))
         
         if 0.0 < self.remainingTimeSec! && self.remainingTimeSec! <= 10.0 && !self.isLastspurtAttached {

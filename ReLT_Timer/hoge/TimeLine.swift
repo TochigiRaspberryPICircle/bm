@@ -9,16 +9,45 @@
 import Foundation
 
 class TimeLine {
-    var index = 0
+    var index = -1
     var timerSettings: [TimerSettings] = []
     
+    
+    func title() -> String {
+        if index < 0 { return ""}
+        return timerSettings[index].title
+    }
+    
+    func minute() -> Int {
+        if index < 0 { return 1}
+        return timerSettings[index].minute
+    }
+    
+    func second() -> Int {
+        if index < 0 { return 0 }
+        return timerSettings[index].second
+    }
+    
+    func next() {
+        self.index += 1
+    }
+    
     func add(mode: TimerMode) {
+        timerSettings.append((done: false, title: "notitle", minute: 1, second: 0))
+    }
+    
+    func add() {
         timerSettings.append((done: false, title: "notitle", minute: 1, second: 0))
     }
     
     func delete(mode: TimerMode, index: Int) {
         if index < 0 { return }
         timerSettings.remove(at: index)
+    }
+    
+    func delete(indexSelected: Int) {
+        if indexSelected < 0 { return }
+        timerSettings.remove(at: indexSelected)
     }
     
     func get(mode: TimerMode) -> [TimerSettings] {
@@ -29,15 +58,39 @@ class TimeLine {
         timerSettings[index].done = true
     }
     
-    func set(mode: TimerMode, index: Int, title: String) {
+    func done() {
+        timerSettings[index].done = true
+    }
+    
+    func isDone(rowSelected: Int) -> Bool {
+        return timerSettings[rowSelected].done
+    }
+    
+    func title(rowSelected: Int) -> String {
+        return timerSettings[rowSelected].title
+    }
+    
+    func minute(rowSelected: Int) -> Int {
+        return timerSettings[rowSelected].minute
+    }
+    
+    func second(rowSelected: Int) -> Int {
+        return timerSettings[rowSelected].second
+    }
+    
+    func length() -> Int {
+        return timerSettings.count
+    }
+    
+    func set(index: Int, title: String) {
         timerSettings[index].title = title
     }
     
-    func set(mode: TimerMode, index: Int, minute: Int) {
+    func set(index: Int, minute: Int) {
         timerSettings[index].minute = minute
     }
     
-    func set(mode: TimerMode, index: Int, second: Int) {
+    func set(index: Int, second: Int) {
         timerSettings[index].second = second
     }
     
@@ -50,5 +103,6 @@ class TimeLine {
         for i in (0 ..< timerSettings.count) {
             timerSettings[i].done = false
         }
+        self.index = -1
     }
 }
