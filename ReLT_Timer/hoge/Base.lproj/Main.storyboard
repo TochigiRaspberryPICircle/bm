@@ -14,9 +14,9 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="hoge" id="1Xt-HY-uBw">
+                            <menuItem title="とてか5" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="hoge" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="とてか5" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
                                         <menuItem title="About hoge" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -138,12 +138,12 @@
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A3p-ca-pqc">
                                 <rect key="frame" x="370" y="17" width="88" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Normal" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aY3-uy-2lK" id="GlP-fE-qXB">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aY3-uy-2lK" id="GlP-fE-qXB">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="CWd-J8-Q9P">
                                         <items>
-                                            <menuItem title="Normal" state="on" id="aY3-uy-2lK"/>
+                                            <menuItem state="on" id="aY3-uy-2lK"/>
                                             <menuItem title="Settings" id="Kgv-s4-wOI"/>
                                         </items>
                                     </menu>
@@ -240,40 +240,40 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="132" minWidth="40" maxWidth="1000" id="tSD-ad-OPr">
+                                                <tableColumn identifier="" width="169" minWidth="40" maxWidth="1000" id="tSD-ad-OPr">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="タイトル">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
                                                     <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="time" id="DYV-gm-ehZ">
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="system" size="25"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="150" minWidth="10" maxWidth="3.4028234663852886e+38" id="PYu-Hp-Fnb">
+                                                <tableColumn identifier="" width="112" minWidth="10" maxWidth="3.4028234663852886e+38" id="PYu-Hp-Fnb">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="分">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
                                                     <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="5dU-BE-ZbK">
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="system" size="25"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="104" minWidth="10" maxWidth="3.4028234663852886e+38" id="k8W-wG-l7i">
+                                                <tableColumn identifier="" width="105" minWidth="10" maxWidth="3.4028234663852886e+38" id="k8W-wG-l7i">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="秒">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
                                                     <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="a2j-iq-n3P">
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="system" size="25"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -288,7 +288,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="QX3-KD-Hw1">
-                                    <rect key="frame" x="1" y="1033" width="438" height="16"/>
+                                    <rect key="frame" x="1" y="167" width="438" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Ypr-AE-2xL">

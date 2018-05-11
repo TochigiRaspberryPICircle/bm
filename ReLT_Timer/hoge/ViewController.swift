@@ -40,6 +40,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     var timeLine = TimeLine()
     var timerIndex = -1
     var timerInterval = 10.0
+    var heightOfRow = 20.0
     
     // MARK: - UI Parts
     
@@ -140,11 +141,14 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     // MARK: - IBAction
     
     private func startTimer() {
+        print("func startTimer()")
         if timeLine.get(mode: self.mode).count == 0 { return }
         guard let remainingTimeSec = self.ltTimer.remainingTimeSec else {
             return
         }
         
+        print("func startTimer(): DispatchQueue.main.async")
+        print("timerIndex:", timerIndex)
         DispatchQueue.main.async {
             if !self.buttonStart.isEnabled { return }
             self.imgClapLeft.isHidden = true
@@ -152,7 +156,7 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             self.imgLion.isHidden = true
             self.labelSetTime.isHidden = false
             self.labelRemainingTime.isHidden = false
-            self.labelRemainingTime.stringValue = self.timeLine.get(mode: self.mode)[self.timerIndex].title
+            //self.labelRemainingTime.stringValue = self.timeLine.get(mode: self.mode)[self.timerIndex].title
             self.buttonStart.isEnabled = false
             self.buttonStop.isEnabled = true
             
@@ -161,6 +165,8 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
             self.timeTableView.reloadData()
         }
         
+        print("func startTimer(): remainingTimeSec")
+        print("remainingTimeSec:", remainingTimeSec)
         if remainingTimeSec > 0 {
             do {
                 return try self.ltTimer.restart()
@@ -169,14 +175,30 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
                 return
             }
         }
+        print("timerIndex:", timerIndex)
         if timerIndex < 0 {
             ltTimer.reset()
             timerIndex = 0
             timeLine.reset()
+            
+            DispatchQueue.main.async {
+                self.labelRemainingTime.stringValue = self.timeLine.get(mode: self.mode)[self.timerIndex].title
+            }
+            
+            print("timeLine.get(mode: self.mode)[timerIndex].minute:", timeLine.get(mode: self.mode)[timerIndex].minute)
+            print("timeLine.get(mode: self.mode)[timerIndex].second:", timeLine.get(mode: self.mode)[timerIndex].second)
+            
             return self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
         }
         if timerIndex >= 0 {
-            self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
+            print("timeLine.get(mode: self.mode)[timerIndex].minute:", timeLine.get(mode: self.mode)[timerIndex].minute)
+            print("timeLine.get(mode: self.mode)[timerIndex].second:", timeLine.get(mode: self.mode)[timerIndex].second)
+            
+            DispatchQueue.main.async {
+                self.labelRemainingTime.stringValue = self.timeLine.get(mode: self.mode)[self.timerIndex].title
+            }
+            
+            return self.ltTimer.start(min: timeLine.get(mode: self.mode)[timerIndex].minute, sec: timeLine.get(mode: self.mode)[timerIndex].second)
         }
     }
     
@@ -331,7 +353,8 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         
         let notification = NSUserNotification()
         notification.title = "とてか05"
-        notification.subtitle = self.timeLine.get(mode: mode)[timerIndex].title
+        print("timerIndex:", timerIndex)
+        //notification.subtitle = self.timeLine.get(mode: mode)[timerIndex].title
         notification.informativeText = "終了しました！"
         notification.contentImage =  NSImage(named: NSImage.Name(rawValue: "lion"))
         notification.userInfo = ["title" : "とてか05"]
@@ -377,12 +400,19 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
     // MARK: - HTTP
     
     func startTimer(request: HttpRequest) -> HttpResponse {
-        startTimer()
+        print("startTimer(request: HttpRequest)")
+        DispatchQueue.main.async {
+            self.startTimer()
+        }
+        
         return HttpResponse.ok(HttpResponseBody.json(["type": "start", "status":0] as AnyObject))
     }
     
     func stopTimer(request: HttpRequest) -> HttpResponse {
-        stopTimer()
+        
+        DispatchQueue.main.async {
+            self.stopTimer()
+        }
         return HttpResponse.ok(HttpResponseBody.json(["type": "stop", "status":0] as AnyObject))
     }
     
@@ -429,5 +459,8 @@ class ViewController: NSViewController, LTTimerProtocol, NSTableViewDelegate, NS
         }
     }
     
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return 30.0
+    }
 }
 

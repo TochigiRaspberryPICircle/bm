@@ -58,9 +58,11 @@ class LTTimer {
     }
     
     private func fire(interval: Double = 0.05) {
+        print("func fire(...)")
         self.starttime = Date()
         self.isCounting = true
         self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: self.onUpdate)
+        print(self.timer)
     }
     
     private func onUpdate(timer: Timer) {

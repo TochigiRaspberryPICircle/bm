@@ -14,7 +14,7 @@ enum TimerMode {
     
     static func create(mode: String) -> TimerMode {
         switch mode {
-        case "Normal":
+        case "":
             return TimerMode.Normal
         case "Settings":
             return TimerMode.Settings
